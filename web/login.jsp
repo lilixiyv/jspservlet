@@ -30,16 +30,20 @@
 
     <script>
         function validateForm(){
-            let username = document.getElementById("username").value;
-            let email = document.getElementById("email").value;
-            let phone_number = document.getElementById("phone_number").value;
-            let password = document.getElementById("password").value;
+            let username = document.getElementById("lg_username").value;
+            let email = document.getElementById("lg_email").value;
+            let phone_number = document.getElementById("lg_phone_number").value;
+            let password = document.getElementById("lg_password").value;
+            let confirm_password = document.getElementById("lg_confirm_password").value;
 
             // 使用 JSTL 输出 JavaScript 代码
-            if (username == null || username === ''||password == null || password === '' || email == null )
+            if (username === ''|| password === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
             {
-                alert("登录信息未正确填写！");
+                alert("注册信息填写不完整！");
                 return false;
+            }
+            else if(password !== confirm_password){
+                alert("两处密码填写不一致！")
             }
 
             return true;
@@ -55,34 +59,34 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">注册</h3>
-                <form onsubmit="">
+                <form onsubmit="return validateForm()">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="username"></label><input type="text" class="form-control" id="username" placeholder="昵称">
+                        <label for="lg_username"></label><input type="text" class="form-control" id="lg_username" placeholder="昵称">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-envelope-fill text-white"></i></span>
-                        <label for="email"></label><input type="text" class="form-control" id="email" placeholder="邮箱">
+                        <label for="lg_email"></label><input type="text" class="form-control" id="lg_email" placeholder="邮箱">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-phone-fill text-white"></i></span>
-                        <label for="phone_number"></label><input type="text" class="form-control" id="phone_number" placeholder="手机号">
+                        <label for="lg_phone_number"></label><input type="text" class="form-control" id="lg_phone_number" placeholder="手机号">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
-                        <label for="password"></label><input type="password" class="form-control" id="password" placeholder="密码">
+                        <label for="lg_password"></label><input type="password" class="form-control" id="lg_password" placeholder="密码">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
-                        <label for="confirm_password"></label><input type="password" class="form-control" id="confirm_password" placeholder="确认密码">
+                        <label for="lg_confirm_password"></label><input type="password" class="form-control" id="lg_confirm_password" placeholder="确认密码">
                     </div>
 
                     <div class="d-grid">
 
-                            <button type="button" class="btn btn-success w-100 bg-success">注册</button>
+                            <button type="submit" class="btn btn-success w-100 bg-success">注册</button>
 
                     </div>
 

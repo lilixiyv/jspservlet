@@ -30,17 +30,18 @@
 
     <script>
         function validateForm() {
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
+            let username = document.getElementById("rg_username").value;
+            let password = document.getElementById("rg_password").value;
 
-            // 使用 JSTL 输出 JavaScript 代码
             if (username == null || username === ''||password == null || password === '')
             {
-                alert("登录信息未正确填写！");
-                return false;
+                alert("登录信息未正确填写!");
+            }
+            else {
+                window.location.href = "user.jsp";
             }
 
-            return true;
+
         }
     </script>
 
@@ -53,22 +54,22 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">登录</h3>
-                <form onsubmit="return validateForm()">
+                <form>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="username"></label><input type="text" class="form-control" id="username" placeholder="昵称/邮箱/手机号">
+                        <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" placeholder="昵称/邮箱/手机号">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
-                        <label for="password"></label><input type="password" class="form-control" id="password" placeholder="密码">
+                        <label for="rg_password"></label><input type="password" class="form-control" id="rg_password" placeholder="密码">
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary w-100">登录</button>
+                            <button type="button" class="btn btn-primary w-100" onclick="validateForm()">登录</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-success w-100 bg-success" onclick="window.location.href='login.jsp'">注册</button>
