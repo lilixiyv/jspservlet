@@ -35,18 +35,21 @@
             let phone_number = document.getElementById("lg_phone_number").value;
             let password = document.getElementById("lg_password").value;
             let confirm_password = document.getElementById("lg_confirm_password").value;
+            let form = document.getElementById("login_form")
 
             // 使用 JSTL 输出 JavaScript 代码
-            if (username === ''|| password === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
+            if (username === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
             {
                 alert("注册信息填写不完整！");
                 return false;
             }
             else if(password !== confirm_password){
                 alert("两处密码填写不一致！")
+            }else{
+                form.submit();
             }
 
-            return true;
+
         }
     </script>
 
@@ -59,7 +62,7 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">注册</h3>
-                <form onsubmit="return validateForm()">
+                <form action="LoginServlet" method="post" id="login_form">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
@@ -86,7 +89,7 @@
 
                     <div class="d-grid">
 
-                            <button type="submit" class="btn btn-success w-100 bg-success">注册</button>
+                            <button type="button" class="btn btn-success w-100 bg-success" onclick="validateForm()">注册</button>
 
                     </div>
 

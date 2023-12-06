@@ -54,7 +54,7 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">登录</h3>
-                <form>
+                <form action="">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>

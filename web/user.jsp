@@ -33,9 +33,15 @@
             padding: 1em; /* 相对于字体大小的 1em */
         }
 
+        #sidebar .nav-link:hover {
+            background-color: #495057; /* 鼠标悬停时的背景色 */
+        }
+
         #content {
-            margin-left: 25%; /* 相对于父元素宽度的 25% */
+            flex: 1;
+            margin-left: 20%; /* 相对于父元素宽度的 25% */
             padding: 2em; /* 相对于字体大小的 2em */
+            overflow-x: auto;
         }
 
         #sidebar-heading {
@@ -44,11 +50,22 @@
             padding-left: 5%; /* 相对于父元素宽度的 5% */
         }
 
+        /*@media (max-width: 768px) {*/
+        /*    !* 在较小屏幕宽度下，减小侧边栏宽度 *!*/
+        /*    #sidebar {*/
+        /*        width: 30%; !* 相对于视口宽度的 30% *!*/
+        /*    }*/
+
+        /*    #content {*/
+        /*        margin-left: 30%; !* 相对于父元素宽度的 30% *!*/
+        /*    }*/
+        /*}*/
+
     </style>
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row flex-nowrap">
         <!-- 侧边导航栏 -->
         <nav id="sidebar">
             <p id="sidebar-heading">New Chat</p>
@@ -69,11 +86,11 @@
         </nav>
 
         <!-- 主要内容区域 -->
-        <main id="content">
+        <div id="content">
             <!-- 这里放置你的主要内容 -->
-            <h1>欢迎使用 New Chat</h1>
-            <p>这是一个演示 New Chat 侧边栏的页面。</p>
-        </main>
+            <h1>Hello</h1>
+            <p>world</p>
+        </div>
     </div>
 </div>
 
