@@ -30,15 +30,16 @@
 
     <script>
         function validateForm() {
-            let username = document.getElementById("rg_username").value;
+            let username = document.getElementById("rg_account").value;
             let password = document.getElementById("rg_password").value;
+            let form = document.getElementById("rg_form");
 
             if (username == null || username === ''||password == null || password === '')
             {
                 alert("登录信息未正确填写!");
             }
             else {
-                window.location.href = "user.jsp";
+                form.submit();
             }
 
 
@@ -54,11 +55,11 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">登录</h3>
-                <form action="">
+                <form action="RegisterServlet" method="post" id="rg_form">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" placeholder="昵称/邮箱/手机号">
+                        <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" placeholder="昵称/邮箱/手机号">
                     </div>
 
                     <div class="input-group mb-3">
