@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.*;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/RegisterServlet")
@@ -22,14 +23,36 @@ public class RegisterServlet extends HttpServlet{
 
         String username = request.getParameter("rg_username");
         String password = request.getParameter("rg_password");
+        String email = request.getParameter("rg_email");
+        String phone_number = request.getParameter("rg_phone_number");
+        int error = 0;
 
-//        response.sendRedirect("register.jsp");
+        if (username == null){
+            response.sendRedirect("login.jsp");
+        }
+        else {
+            HttpSession session = request.getSession(true);
+
+            /* 需实现：
+             1. 查询账号信息，若username/email/phone_number已存在，则将error置为1
+             2. 若不存在，则对密码求sha256，然后将账号信息插入数据库*/
+
+
+
+            if (error == 1) {
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+
+            }
+            else {
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            }
+
+
+        }
+
         // 属性usersList的值为users
         //request.setAttribute("usersList", users);
 
-        // 将当前的 request 和 response 对象传递给名为 "selectAll.jsp" 的JSP页面。
-        // 这会导致控制权从当前Servlet转移到 "selectAll.jsp" 页面，
-        // 且 "selectAll.jsp" 可以处理该请求并生成响应
-        request.getRequestDispatcher("user.jsp").forward(request, response);
     }
 }
