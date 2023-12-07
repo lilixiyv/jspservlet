@@ -21,16 +21,30 @@ public class LoginServlet extends HttpServlet{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
-        String username = request.getParameter("lg_username");
+        String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
+        int error = 2;
 
-//        response.sendRedirect("register.jsp");
-        // 属性usersList的值为users
-        //request.setAttribute("usersList", users);
+        /*
+        登录
+        数据库存储password的哈希值
+        故先对password求哈希，然后在数据库中查询该用户信息
+        其中account可能是username/email/phone_number中的任一种
+        若account不存在，则将error置为1
+        若password错误，则将error置为2
+         */
 
-        // 将当前的 request 和 response 对象传递给名为 "selectAll.jsp" 的JSP页面。
-        // 这会导致控制权从当前Servlet转移到 "selectAll.jsp" 页面，
-        // 且 "selectAll.jsp" 可以处理该请求并生成响应
-        request.getRequestDispatcher("user.jsp").forward(request, response);
+        if (error == 1) {
+            request.setAttribute("errorMessage", "用户不存在！");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+        } else if (error == 2) {
+            request.setAttribute("errorMessage", "密码错误！");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+        } else {
+            request.getRequestDispatcher("user.jsp").forward(request, response);
+        }
+
     }
 }

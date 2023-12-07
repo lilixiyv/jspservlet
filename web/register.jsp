@@ -69,20 +69,20 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" placeholder="昵称">
+                        <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" name="rg_username" placeholder="昵称">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-envelope-fill text-white"></i></span>
-                        <label for="rg_email"></label><input type="text" class="form-control" id="rg_email" placeholder="邮箱">
+                        <label for="rg_email"></label><input type="text" class="form-control" id="rg_email" name="rg_email" placeholder="邮箱">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-phone-fill text-white"></i></span>
-                        <label for="rg_phone_number"></label><input type="text" class="form-control" id="rg_phone_number" placeholder="手机号">
+                        <label for="rg_phone_number"></label><input type="text" class="form-control" id="rg_phone_number" name="rg_phone_number" placeholder="手机号">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
-                        <label for="rg_password"></label><input type="password" class="form-control" id="rg_password" placeholder="密码">
+                        <label for="rg_password"></label><input type="password" class="form-control" id="rg_password" name="rg_password" placeholder="密码">
                     </div>
 
                     <div class="input-group mb-3">
@@ -103,6 +103,17 @@
     </div>
 
 </div>
+
+
+<%--@elvariable id="errorMessage" type="com.jspservlet.servlet.RegisterServlet"--%>
+<c:if test = "${not empty errorMessage}">
+
+
+    <script>
+        alert("${errorMessage}");
+    </script>
+</c:if>
+
 
 </body>
 

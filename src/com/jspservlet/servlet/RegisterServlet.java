@@ -33,18 +33,20 @@ public class RegisterServlet extends HttpServlet{
         else {
             HttpSession session = request.getSession(true);
 
-            /* 需实现：
+            /* 注册
+            需实现：
              1. 查询账号信息，若username/email/phone_number已存在，则将error置为1
              2. 若不存在，则对密码求sha256，然后将账号信息插入数据库*/
 
 
 
             if (error == 1) {
+                request.setAttribute("errorMessage", "用户已存在！");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
 
-            }
-            else {
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            } else {
+                request.getRequestDispatcher("user.jsp").forward(request, response);
 
             }
 

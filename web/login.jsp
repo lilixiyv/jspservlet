@@ -30,11 +30,11 @@
 
     <script>
         function validateForm() {
-            let username = document.getElementById("lg_account").value;
+            let account = document.getElementById("lg_account").value;
             let password = document.getElementById("lg_password").value;
             let form = document.getElementById("lg_form");
 
-            if (username == null || username === ''||password == null || password === '')
+            if (account === '' || password === '')
             {
                 alert("登录信息未正确填写!");
             }
@@ -59,12 +59,12 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" placeholder="昵称/邮箱/手机号">
+                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="昵称/邮箱/手机号">
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
-                        <label for="lg_password"></label><input type="password" class="form-control" id="lg_password" placeholder="密码">
+                        <label for="lg_password"></label><input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="密码">
                     </div>
 
 
@@ -84,7 +84,14 @@
     </div>
 
 </div>
+<%--@elvariable id="errorMessage" type="com.jspservlet.servlet.LoginServlet"--%>
+<c:if test = "${not empty errorMessage}">
 
+
+    <script>
+        alert("${errorMessage}");
+    </script>
+</c:if>
 </body>
 
 </html>
