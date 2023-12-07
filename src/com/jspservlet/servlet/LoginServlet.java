@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet{
 
         String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
-        int error = 2;
+        int error = 0;
 
         /*
         登录
@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet{
         其中account可能是username/email/phone_number中的任一种
         若account不存在，则将error置为1
         若password错误，则将error置为2
+        若存在，则返回相关信息，可以为JAVA类
          */
 
         if (error == 1) {

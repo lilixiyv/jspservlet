@@ -59,7 +59,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="昵称/邮箱/手机号">
+                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="账号">
                     </div>
 
                     <div class="input-group mb-3">

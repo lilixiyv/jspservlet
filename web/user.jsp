@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -94,5 +95,13 @@
     </div>
 </div>
 
+<%--@elvariable id="successMessage" type="com.jspservlet.servlet.RegisterServlet"--%>
+<c:if test = "${not empty successMessage}">
+
+
+    <script>
+        alert("${successMessage}");
+    </script>
+</c:if>
 </body>
 </html>

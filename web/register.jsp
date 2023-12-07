@@ -31,6 +31,7 @@
 
     <script>
         function validateForm(){
+            let account = document.getElementById("rg_account").value;
             let username = document.getElementById("rg_username").value;
             let email = document.getElementById("rg_email").value;
             let phone_number = document.getElementById("rg_phone_number").value;
@@ -39,7 +40,7 @@
             let form = document.getElementById("rg_form")
 
             // 使用 JSTL 输出 JavaScript 代码
-            if (username === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
+            if (account === '' || username === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
             {
                 alert("注册信息填写不完整！");
                 return false;
@@ -67,6 +68,10 @@
                 <h3 class="card-title text-center">注册</h3>
                 <form action="RegisterServlet" method="post" id="rg_form">
 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
+                        <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" name="rg_account" placeholder="账号">
+                    </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
                         <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" name="rg_username" placeholder="昵称">

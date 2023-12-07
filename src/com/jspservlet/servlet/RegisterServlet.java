@@ -21,6 +21,7 @@ public class RegisterServlet extends HttpServlet{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
+        String account = request.getParameter("rg_account");
         String username = request.getParameter("rg_username");
         String password = request.getParameter("rg_password");
         String email = request.getParameter("rg_email");
@@ -35,7 +36,7 @@ public class RegisterServlet extends HttpServlet{
 
             /* 注册
             需实现：
-             1. 查询账号信息，若username/email/phone_number已存在，则将error置为1
+             1. 查询账号信息，若已存在，则将error置为1
              2. 若不存在，则对密码求sha256，然后将账号信息插入数据库*/
 
 
@@ -46,6 +47,7 @@ public class RegisterServlet extends HttpServlet{
 
 
             } else {
+                request.setAttribute("successMessage", "注册成功！");
                 request.getRequestDispatcher("user.jsp").forward(request, response);
 
             }
