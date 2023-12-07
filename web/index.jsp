@@ -19,9 +19,9 @@
   </head>
   <!DOCTYPE html>
   <body>
-  // 自动跳转到register.jsp页面
+  // 自动跳转到login.jsp页面
     <script>
-      window.location.href="register.jsp";
+      window.location.href="login.jsp";
     </script>
   </body>
 
