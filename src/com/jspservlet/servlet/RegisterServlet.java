@@ -32,7 +32,6 @@ public class RegisterServlet extends HttpServlet{
             response.sendRedirect("login.jsp");
         }
         else {
-            HttpSession session = request.getSession(true);
 
             /* 注册
             需实现：

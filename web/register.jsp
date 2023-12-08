@@ -55,6 +55,8 @@
 
         }
 
+
+
     </script>
 
 </head>
@@ -71,9 +73,10 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
                         <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" name="rg_account" placeholder="账号">
+
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
+                        <span class="input-group-text bg-info"><i class="bi bi-emoji-sunglasses-fill text-white"></i></span>
                         <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" name="rg_username" placeholder="昵称">
                     </div>
                     <div class="input-group mb-3">

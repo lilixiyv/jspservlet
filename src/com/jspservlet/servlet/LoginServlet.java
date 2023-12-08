@@ -1,11 +1,8 @@
 package com.jspservlet.servlet;
 
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import javax.servlet.*;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/LoginServlet")
@@ -44,6 +41,10 @@ public class LoginServlet extends HttpServlet{
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } else {
+            //使用Cookie来防止未登录就直接访问用户界面的情况
+            Cookie cookie = new Cookie("account",account);
+            cookie.setMaxAge(60*60);
+            response.addCookie(cookie);
             request.getRequestDispatcher("user.jsp").forward(request, response);
         }
 

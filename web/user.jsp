@@ -103,5 +103,23 @@
         alert("${successMessage}");
     </script>
 </c:if>
+
+<%--使用cookie防止用户绕过登录直接进入网页--%>
+<%
+    Cookie[] cookies = request.getCookies();
+    String account = null;
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("account".equals(cookie.getName())) {
+                account = cookie.getValue();
+                break;
+            }
+        }
+    }
+    if (cookies == null || account == null){
+       request.setAttribute("errorMessage", "请先登录");
+       request.getRequestDispatcher("login.jsp").forward(request,response);
+    }
+%>
 </body>
 </html>
