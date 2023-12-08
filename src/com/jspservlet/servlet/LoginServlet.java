@@ -21,12 +21,14 @@ public class LoginServlet extends HttpServlet{
         String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
         int error = 0;
-
+        if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
+            request.setAttribute("errorMessage", "账号异常！");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         /*
         登录
         数据库存储password的哈希值
         故先对password求哈希，然后在数据库中查询该用户信息
-        其中account可能是username/email/phone_number中的任一种
         若account不存在，则将error置为1
         若password错误，则将error置为2
         若存在，则返回相关信息，可以为JAVA类
@@ -42,10 +44,16 @@ public class LoginServlet extends HttpServlet{
 
         } else {
             //使用Cookie来防止未登录就直接访问用户界面的情况
-            Cookie cookie = new Cookie("account",account);
-            cookie.setMaxAge(60*60);
-            response.addCookie(cookie);
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
+                request.setAttribute("errorMessage", "登录异常！");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                Cookie cookie = new Cookie("account",account);
+                cookie.setMaxAge(60*60);
+                response.addCookie(cookie);
+                request.getRequestDispatcher("user.jsp").forward(request, response);
+            }
+
         }
 
     }

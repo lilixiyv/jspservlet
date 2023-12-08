@@ -38,20 +38,38 @@
             let password = document.getElementById("rg_password").value;
             let confirm_password = document.getElementById("rg_confirm_password").value;
             let form = document.getElementById("rg_form")
+            let is_valid_account = /^[a-zA-Z0-9]{8,16}$/.test(account);
 
-            // 使用 JSTL 输出 JavaScript 代码
             if (account === '' || username === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
             {
                 alert("注册信息填写不完整！");
                 return false;
-            }
-            else if(password !== confirm_password){
+            } else if (!is_valid_account) {
+                alert("账号必须由字母和数字组成，且长度在8到16之间！");
+                return false;
+            } else if (password !== confirm_password){
                 alert("两处密码填写不一致！")
-            }else{
+            } else {
 
                 form.submit();
             }
 
+
+        }
+
+        function checkAccount() {
+            let account = document.getElementById("rg_account");
+            let account_feedback = document.getElementById("rg_account_feedback");
+            let is_valid = /^[a-zA-Z0-9]{8,16}$/.test(account.value);
+            if (is_valid) {
+                account.classList.remove("is-invalid");
+                account.classList.add("is-valid");
+                account_feedback.innerHTML="";
+            } else {
+                account.classList.remove("is-valid");
+                account.classList.add("is-invalid");
+                account_feedback.innerHTML = "账号必须由字母和数字组成，且长度在8到16之间！"
+            }
 
         }
 
@@ -72,8 +90,8 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" name="rg_account" placeholder="账号">
-
+                        <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" name="rg_account" placeholder="账号" oninput="checkAccount()">
+                        <div id="rg_account_feedback" class="invalid-feedback"></div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-emoji-sunglasses-fill text-white"></i></span>

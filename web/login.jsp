@@ -33,15 +33,33 @@
             let account = document.getElementById("lg_account").value;
             let password = document.getElementById("lg_password").value;
             let form = document.getElementById("lg_form");
+            let is_valid_account = /^[a-zA-Z0-9]{8,16}$/.test(account);
 
             if (account === '' || password === '')
             {
                 alert("登录信息未正确填写!");
-            }
-            else {
+            } else if (!is_valid_account) {
+                alert("账号必须由字母和数字组成，且长度在8到16之间！");
+            } else {
                 form.submit();
             }
 
+
+        }
+
+        function checkAccount() {
+            let account = document.getElementById("lg_account");
+            let account_feedback = document.getElementById("lg_account_feedback");
+            let is_valid = /^[a-zA-Z0-9]{8,16}$/.test(account.value);
+            if (is_valid) {
+                account.classList.remove("is-invalid");
+                account.classList.add("is-valid");
+                account_feedback.innerHTML="";
+            } else {
+                account.classList.remove("is-valid");
+                account.classList.add("is-invalid");
+                account_feedback.innerHTML = "账号必须由字母和数字组成，且长度在8到16之间！";
+            }
 
         }
     </script>
@@ -59,7 +77,8 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="账号">
+                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="账号" oninput="checkAccount()">
+                        <div id="lg_account_feedback" class="invalid-feedback"></div>
                     </div>
 
                     <div class="input-group mb-3">

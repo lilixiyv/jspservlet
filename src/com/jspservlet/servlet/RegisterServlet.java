@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet{
 
             } else {
                 request.setAttribute("successMessage", "注册成功！");
-                request.getRequestDispatcher("user.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
 
             }
 
