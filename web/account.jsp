@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
-  Date: 2023/12/5
-  Time: 19:19
+  Date: 2023/12/9
+  Time: 10:41
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -44,21 +44,3 @@
 </c:if>
 </body>
 </html>
-
-<%--使用cookie防止用户绕过登录直接进入网页--%>
-<%--<%--%>
-<%--    Cookie[] cookies = request.getCookies();--%>
-<%--    String account = null;--%>
-<%--    if (cookies != null) {--%>
-<%--        for (Cookie cookie : cookies) {--%>
-<%--            if ("account".equals(cookie.getName())) {--%>
-<%--                account = cookie.getValue();--%>
-<%--                break;--%>
-<%--            }--%>
-<%--        }--%>
-<%--    }--%>
-<%--    if (cookies == null || account == null){--%>
-<%--       request.setAttribute("errorMessage", "请先登录！");--%>
-<%--       request.getRequestDispatcher("login.jsp").forward(request,response);--%>
-<%--    }--%>
-<%--%>--%>
