@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%-- 导入自定义的侧边栏样式   --%>
-<link rel="stylesheet" href="./assets/css/sidebar.css">
+<link rel="stylesheet" href="assets/css/self_sidebar.css">
 <nav id="sidebar">
     <p id="sidebar-heading">网上书店</p>
     <ul class="nav flex-column">

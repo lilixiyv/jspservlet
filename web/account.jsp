@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
 
     <%-- 导入自定义的主体样式 --%>
-    <link rel="stylesheet" href="./assets/css/content.css">
+    <link rel="stylesheet" href="assets/css/self_content.css">
     <%-- 导入自定义的cookie判断，防止绕过正常登录流程 --%>
     <script src="assets/js/verify_cookies.js"></script>
 
@@ -31,7 +31,8 @@
         <!-- 主要内容区域 -->
         <div id="content">
             <!-- 这里放置你的主要内容 -->
-
+            <p id="ac_p_0"></p>
+            <script>document.getElementById("ac_p_0").innerHTML = "account: " + getCookie("account")</script>
         </div>
     </div>
 </div>

@@ -1,0 +1,7 @@
+thead {
+    position: sticky;
+    top: 0;
+    /*background-color: #343a40; !* 你的表头背景颜色 *!*/
+    /*color: #fff; !* 你的表头文字颜色 *!*/
+    z-index: 1;
+}

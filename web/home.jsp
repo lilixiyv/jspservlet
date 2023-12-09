@@ -17,9 +17,11 @@
     <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
 
     <%-- 导入自定义的主体样式 --%>
-    <link rel="stylesheet" href="./assets/css/content.css">
+    <link rel="stylesheet" href="assets/css/self_content.css">
     <%-- 导入自定义的cookie判断，防止绕过正常登录流程 --%>
     <script src="assets/js/verify_cookies.js"></script>
+    <%--导入自定义的表格样式--%>
+    <link rel="stylesheet" href="assets/css/self_table.css">
 
 </head>
 <body>
@@ -31,7 +33,42 @@
         <!-- 主要内容区域 -->
         <div id="content">
             <!-- 这里放置你的主要内容 -->
-
+            <h1>书目</h1>
+            <div style="height: 80vh; overflow: auto;">
+                <table class="table table-light table-striped table-hover">
+                    <thead>
+                    <tr class="table-dark">
+                        <th>书名</th>
+                        <th>作者</th>
+                        <th>出版社</th>
+                        <th>分类</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
+<%--                    <c:forEach var="book" items="${bookList}">--%>
+<%--                        <tr>--%>
+<%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
+<%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
+<%--                            <td>${book.authorName}</td>--%>
+<%--                            <td>${book.pressName}</td>--%>
+<%--                            <td>${book.categoryName}</td>--%>
+<%--                            <td>${book.price}</td>--%>
+<%--                        </tr>--%>
+<%--                    </c:forEach>--%>
+                    <%for (int i = 1; i <=50; i++) {%>
+                    <tr>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
