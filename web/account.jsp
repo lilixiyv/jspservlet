@@ -1,3 +1,4 @@
+<%--@elvariable id="identity" type="com.jspservlet.servlet.HomeServlet"--%>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -31,8 +32,11 @@
         <!-- 主要内容区域 -->
         <div id="content">
             <!-- 这里放置你的主要内容 -->
-            <p id="ac_p_0"></p>
-            <script>document.getElementById("ac_p_0").innerHTML = "account: " + getCookie("account")</script>
+
+            <c:if test="${not empty identity}">
+                <p>"identity" + ${identity}</p>
+            </c:if>
+
         </div>
     </div>
 </div>

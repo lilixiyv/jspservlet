@@ -33,10 +33,12 @@ public class RegisterServlet extends HttpServlet{
         }
         else {
 
-            /* 注册
+            /*
+            注册
             需实现：
-             1. 查询账号信息，若已存在，则将error置为1
-             2. 若不存在，则对密码求sha256，然后将账号信息插入数据库*/
+            1. 查询账号信息，若已存在，则将error置为1
+            2. 若不存在，则对密码求sha256，然后将账号信息插入数据库
+            */
 
 
 

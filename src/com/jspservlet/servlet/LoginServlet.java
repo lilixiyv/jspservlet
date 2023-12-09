@@ -18,11 +18,14 @@ public class LoginServlet extends HttpServlet{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
+
+
         String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
-
         // 获取权限信息
         int identity = 0;
+
+
 
         int error = 0;
         if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
@@ -36,7 +39,7 @@ public class LoginServlet extends HttpServlet{
         若account不存在，则将error置为1
         若password错误，则将error置为2
         若存在，则返回相关信息，可以为JAVA类
-         */
+        */
 
         if (error == 1) {
             request.setAttribute("errorMessage", "用户不存在！");
@@ -52,10 +55,20 @@ public class LoginServlet extends HttpServlet{
                 request.setAttribute("errorMessage", "登录异常！");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                Cookie cookie = new Cookie("account",account);
+                HttpSession session = request.getSession();
+
+                session.setAttribute("session_account", account);
+                session.setAttribute("session_identity", identity);
+
+
+                Cookie cookie = new Cookie("account", session.getAttribute("session_identity").toString());
                 cookie.setMaxAge(60*60);
                 response.addCookie(cookie);
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+
+
+
+                response.sendRedirect(request.getContextPath()+"/HomeServlet");
+//                request.getRequestDispatcher("/HomeServlet").forward(request, response);
             }
 
         }
