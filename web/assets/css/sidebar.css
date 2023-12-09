@@ -1,0 +1,37 @@
+#sidebar {
+    position: fixed;
+    width: 20%; /* 相对于视口宽度的 25% */
+    height: 100%;
+    background-color: #343a40;
+    padding-top: 5%; /* 相对于父元素高度的 5% */
+}
+
+#sidebar .nav-link {
+    color: #fff;
+    padding: 1em; /* 相对于字体大小的 1em */
+}
+
+#sidebar .nav-link:hover {
+    background-color: #495057; /* 鼠标悬停时的背景色 */
+}
+
+#sidebar .nav-link.active{
+    background-color: #495057;
+}
+
+#sidebar-heading {
+    font-size: 1.2rem;
+    color: #fff;
+    padding-left: 5%; /* 相对于父元素宽度的 5% */
+}
+
+@media (max-width: 768px) {
+    /* 在较小屏幕宽度下，减小侧边栏宽度 */
+    #sidebar {
+        width: 30%; /* 相对于视口宽度的 30% */
+    }
+
+    #content {
+        margin-left: 30%; /* 相对于父元素宽度的 30% */
+    }
+}
