@@ -24,12 +24,29 @@ public class HomeServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         if( session == null){
-
-
-            request.getRequestDispatcher("account.jsp").forward(request,response);
+            request.setAttribute("errorMessage", "请登录！");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            request.setAttribute("identity",session.getAttribute("session_identity"));
-            request.getRequestDispatcher("account.jsp").forward(request,response);
+            HttpSession tmp_session = request.getSession();
+            if (tmp_session == null || tmp_session.getAttribute("session_identity") == null) {
+                request.setAttribute("errorMessage", "请登录！");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                if (request.getParameter("book_name") == null){
+                    //查询所有结果
+
+
+                } else {
+                    //根据传入参数查询相应结果
+
+                }
+                request.getRequestDispatcher("home.jsp").forward(request,response);
+
+
+            }
+
+
+
         }
 
 

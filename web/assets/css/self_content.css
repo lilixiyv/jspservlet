@@ -5,7 +5,7 @@ body {
 
 #content {
     flex: 1;
-    margin-left: 20%; /* 相对于父元素宽度的 25% */
+    margin-left: 15%; /* 相对于父元素宽度的 */
     padding: 2em; /* 相对于字体大小的 2em */
     overflow-x: auto;
 }
@@ -13,7 +13,7 @@ body {
 @media (max-width: 768px) {
     /* 在较小屏幕宽度下，减小侧边栏宽度 */
     #content {
-        margin-left: 30%; /* 相对于父元素宽度的 30% */
+        margin-left: 10%; /* 相对于父元素宽度的 30% */
     }
 }
 

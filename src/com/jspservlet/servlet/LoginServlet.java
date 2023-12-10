@@ -61,14 +61,13 @@ public class LoginServlet extends HttpServlet{
                 session.setAttribute("session_identity", identity);
 
 
-                Cookie cookie = new Cookie("account", session.getAttribute("session_identity").toString());
+                Cookie cookie = new Cookie("account", session.getAttribute("session_account").toString());
                 cookie.setMaxAge(60*60);
                 response.addCookie(cookie);
 
 
 
                 response.sendRedirect(request.getContextPath()+"/HomeServlet");
-//                request.getRequestDispatcher("/HomeServlet").forward(request, response);
             }
 
         }

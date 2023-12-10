@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/css/self_content.css">
     <%-- 导入自定义的cookie判断，防止绕过正常登录流程 --%>
     <script src="assets/js/verify_cookies.js"></script>
-    <%--导入自定义的表格样式--%>
+    <%-- 导入自定义的表格样式 --%>
     <link rel="stylesheet" href="assets/css/self_table.css">
 
 </head>
@@ -32,16 +32,139 @@
 
         <!-- 主要内容区域 -->
         <div id="content">
-            <!-- 这里放置你的主要内容 -->
             <h1>书目</h1>
-            <div style="height: 80vh; overflow: auto;">
+            <div class="container mt-4">
+<%--                将标签和输入分为两行来解决对齐问题，但当页面过窄时依然会效果不佳--%>
+                <div class="row g-3 align-items-center">
+
+                    <div class="col-md-2">
+                        <label for="bookName" class="form-label">书名</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="publishDate" class="form-label">出版时间</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="author" class="form-label">作者</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="publisher" class="form-label">出版社</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="category" class="form-label">分类</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="rating" class="form-label">好评率</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="commentCount" class="form-label">评论数</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="price" class="form-label">价格</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="sortOrder" class="form-label">排序</label>
+                    </div>
+                </div>
+                <form class="row g-3 align-items-center" method="post" action="HomeServlet">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="bookName" name="book_name" placeholder="任意">
+                    </div>
+                    <div class="col-md-1">
+                        <select class="form-select" id="publishDate" name="time">
+                            <option selected value="-1">任意</option>
+                            <option value="0">2010之前</option>
+                            <option value="1">2010-15</option>
+                            <option value="2">2015-20</option>
+                            <option value="3">2020及之后</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="text" class="form-control" id="author" name="author" placeholder="任意">
+                    </div>
+                    <div class="col-md-1">
+                        <input type="text" class="form-control" id="publisher" name="press_name" placeholder="任意">
+                    </div>
+                    <div class="col-md-1">
+                        <select class="form-select" id="category" name="category">
+                            <option selected value="-1">任意</option>
+                            <option value="1">中国当代小说</option>
+                            <option value="2">中国现当代随笔</option>
+                            <option value="3">休闲</option>
+                            <option value="4">传记</option>
+                            <option value="5">历史</option>
+                            <option value="6">名家文学</option>
+                            <option value="7">哲学</option>
+                            <option value="8">外国小说</option>
+                            <option value="9">外国随笔</option>
+                            <option value="10">情感小说</option>
+                            <option value="11">推理小说</option>
+                            <option value="12">文学评论</option>
+                            <option value="13">文集</option>
+                            <option value="14">法律</option>
+                            <option value="15">社会小说</option>
+                            <option value="16">艺术</option>
+                            <option value="17">青春文学</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <select class="form-select" id="rating" name="pos_rate">
+                            <option selected value="-1">任意</option>
+                            <option value="20">&lt;20%</option>
+                            <option value="50">20%-50%</option>
+                            <option value="80">50%-80%</option>
+                            <option value="90">80%-90%</option>
+                            <option value="100">&ge;90%</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <select class="form-select" id="commentCount" name="comment_name">
+                            <option selected value="-1">任意</option>
+                            <option value="0">&lt;5</option>
+                            <option value="1">5-10</option>
+                            <option value="2">10-15</option>
+                            <option value="3">15-20</option>
+                            <option value="4">&ge;20</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <select class="form-select" id="price" name="price">
+                            <option selected value="-1">任意</option>
+                            <option value="0">&lt;20</option>
+                            <option value="1">20-50</option>
+                            <option value="2">50-100</option>
+                            <option value="3">&ge;100</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select" id="sortOrder" name="sort_order">
+                            <option selected value="0">按价格升序</option>
+                            <option value="1">按价格降序</option>
+                            <option value="2">按好评率升序</option>
+                            <option value="3">按好评率降序</option>>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-secondary w-100">搜索</button>
+                    </div>
+                </form>
+            </div>
+
+            <div style="height: 65vh; overflow: auto;">
                 <table class="table table-light table-striped table-hover">
                     <thead>
                     <tr class="table-dark">
                         <th>书名</th>
+                        <th>出版时间</th>
                         <th>作者</th>
                         <th>出版社</th>
                         <th>分类</th>
+                        <th>好评率</th>
+                        <th>评论数</th>
                         <th>价格</th>
                     </tr>
                     </thead>
@@ -59,6 +182,10 @@
 <%--                    </c:forEach>--%>
                     <%for (int i = 1; i <=50; i++) {%>
                     <tr>
+                        <%--跳转页面待改变--%>
+                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
+                        <td> test </td>
+                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>
                         <td> test </td>
                         <td> test </td>
                         <td> test </td>
