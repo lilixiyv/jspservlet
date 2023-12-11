@@ -1,5 +1,7 @@
 package com.jspservlet.servlet;
 
+import com.jspservlet.dao.UserDao;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.servlet.*;
@@ -41,6 +43,8 @@ public class LoginServlet extends HttpServlet{
         若password错误，则将error置为2
         若存在，则返回相关信息，可以为JAVA类
         */
+        UserDao userDao = new UserDao();
+
 
         if (error == 1) {
             request.setAttribute("errorMessage", "用户不存在！");

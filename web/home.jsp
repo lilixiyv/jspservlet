@@ -87,39 +87,39 @@
                     </div>
                     <div class="col-md-1">
                         <select class="form-select" id="category" name="category">
-                            <option selected value="-1">任意</option>
-                            <option value="1">中国当代小说</option>
-                            <option value="2">中国现当代随笔</option>
-                            <option value="3">休闲</option>
-                            <option value="4">传记</option>
-                            <option value="5">历史</option>
-                            <option value="6">名家文学</option>
-                            <option value="7">哲学</option>
-                            <option value="8">外国小说</option>
-                            <option value="9">外国随笔</option>
-                            <option value="10">情感小说</option>
-                            <option value="11">推理小说</option>
-                            <option value="12">文学评论</option>
-                            <option value="13">文集</option>
-                            <option value="14">法律</option>
-                            <option value="15">社会小说</option>
-                            <option value="16">艺术</option>
-                            <option value="17">青春文学</option>
+                            <option selected value="">任意</option>
+                            <option value="中国当代小说">中国当代小说</option>
+                            <option value="中国现当代随笔">中国现当代随笔</option>
+                            <option value="休闲">休闲</option>
+                            <option value="传记">传记</option>
+                            <option value="历史">历史</option>
+                            <option value="名家文学">名家文学</option>
+                            <option value="哲学">哲学</option>
+                            <option value="外国小说">外国小说</option>
+                            <option value="外国随笔">外国随笔</option>
+                            <option value="情感小说">情感小说</option>
+                            <option value="推理小说">推理小说</option>
+                            <option value="文学评论">文学评论</option>
+                            <option value="文集">文集</option>
+                            <option value="法律">法律</option>
+                            <option value="社会小说">社会小说</option>
+                            <option value="艺术">艺术</option>
+                            <option value="青春文学">青春文学</option>
                         </select>
                     </div>
                     <div class="col-md-1">
                         <select class="form-select" id="rating" name="pos_rate">
                             <option selected value="-1">任意</option>
-                            <option value="20">&lt;20%</option>
-                            <option value="50">20%-50%</option>
-                            <option value="80">50%-80%</option>
-                            <option value="90">80%-90%</option>
-                            <option value="100">&ge;90%</option>
+                            <option value="0">&lt;20%</option>
+                            <option value="1">20%-50%</option>
+                            <option value="2">50%-80%</option>
+                            <option value="3">80%-90%</option>
+                            <option value="4">&ge;90%</option>
 
                         </select>
                     </div>
                     <div class="col-md-1">
-                        <select class="form-select" id="commentCount" name="comment_name">
+                        <select class="form-select" id="commentCount" name="comment_num">
                             <option selected value="-1">任意</option>
                             <option value="0">&lt;5</option>
                             <option value="1">5-10</option>
@@ -170,16 +170,16 @@
                     </thead>
                     <tbody>
                     <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
-<%--                    <c:forEach var="book" items="${bookList}">--%>
-<%--                        <tr>--%>
-<%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
-<%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
-<%--                            <td>${book.authorName}</td>--%>
-<%--                            <td>${book.pressName}</td>--%>
-<%--                            <td>${book.categoryName}</td>--%>
-<%--                            <td>${book.price}</td>--%>
-<%--                        </tr>--%>
-<%--                    </c:forEach>--%>
+                    <c:forEach var="book" items="${bookList}">
+                        <tr>
+                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->
+                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>
+                            <td>${book.authorName}</td>
+                            <td>${book.pressName}</td>
+                            <td>${book.categoryName}</td>
+                            <td>${book.price}</td>
+                        </tr>
+                    </c:forEach>
                     <%for (int i = 1; i <=50; i++) {%>
                     <tr>
                         <%--跳转页面待改变--%>

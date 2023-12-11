@@ -1,11 +1,17 @@
 package com.jspservlet.servlet;
+
+import com.jspservlet.dao.AdminDao;
+import com.jspservlet.entity.Customer;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/CustomersServlet")
 public class CustomersServlet extends HttpServlet{
@@ -31,6 +37,15 @@ public class CustomersServlet extends HttpServlet{
                 response.sendRedirect("login.jsp");
             } else {
                 // TODO 查询普通用户信息
+                AdminDao adminDao = new AdminDao();
+                List<Customer> customerList;
+                try {
+                    customerList = adminDao.getAllCustomerInformation();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                request.setAttribute("customerList", customerList);
                 request.getRequestDispatcher("customers.jsp").forward(request,response);
             }
         }
