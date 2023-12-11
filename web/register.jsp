@@ -11,7 +11,7 @@
 <html lang='en'>
 <head>
     <title>用户注册</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/img/webicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
@@ -37,10 +37,13 @@
             let phone_number = document.getElementById("rg_phone_number").value;
             let password = document.getElementById("rg_password").value;
             let confirm_password = document.getElementById("rg_confirm_password").value;
-            let form = document.getElementById("rg_form")
+            let address = document.getElementById("rg_address").value;
+
+            let form = document.getElementById("rg_form");
+
             let is_valid_account = /^[a-zA-Z0-9]{8,16}$/.test(account);
 
-            if (account === '' || username === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
+            if (account === '' || username === '' || email === '' || phone_number === '' || address === '' || password === '' || confirm_password === '')
             {
                 alert("注册信息填写不完整！");
                 return false;
@@ -104,6 +107,11 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-phone-fill text-white"></i></span>
                         <label for="rg_phone_number"></label><input type="text" class="form-control" id="rg_phone_number" name="rg_phone_number" placeholder="手机号">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-info"><i class="bi bi-buildings text-white"></i></span>
+                        <label for="rg_address"></label><input type="text" class="form-control" id="rg_address" name="rg_address" placeholder="地址">
                     </div>
 
                     <div class="input-group mb-3">

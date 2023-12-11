@@ -11,7 +11,7 @@
 <html lang='en'>
 <head>
     <title>用户登录</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/img/webicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
@@ -46,22 +46,6 @@
 
 
         }
-
-        function checkAccount() {
-            let account = document.getElementById("lg_account");
-            let account_feedback = document.getElementById("lg_account_feedback");
-            let is_valid = /^[a-zA-Z0-9]{8,16}$/.test(account.value);
-            if (is_valid) {
-                account.classList.remove("is-invalid");
-                account.classList.add("is-valid");
-                account_feedback.innerHTML="";
-            } else {
-                account.classList.remove("is-valid");
-                account.classList.add("is-invalid");
-                account_feedback.innerHTML = "账号必须由字母和数字组成，且长度在8到16之间！";
-            }
-
-        }
     </script>
 
 </head>
@@ -77,7 +61,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
-                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="账号" oninput="checkAccount()">
+                        <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="账号">
                         <div id="lg_account_feedback" class="invalid-feedback"></div>
                     </div>
 

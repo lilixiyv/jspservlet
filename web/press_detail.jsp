@@ -1,15 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
-  Date: 2023/12/9
-  Time: 20:50
+  Date: 2023/12/10
+  Time: 17:23
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>作者详情</title>
+    <title>出版社详情</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
@@ -26,22 +27,16 @@
             <%--书名--%>
             <%--            <div class="card-header">  </div>--%>
             <div class="card-body">
-                <h3 class="card-title text-center">作者</h3>
+                <h3 class="card-title text-center">出版社</h3>
                 <form>
 
-
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-info text-white col-2">国籍</span>
-                        <label for="time"></label><input type="text" class="form-control" id="time" value="国籍" disabled>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-info text-white col-2">生日</span>
-                        <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value="生日" disabled>
+                        <span class="input-group-text bg-info text-white col-2">地址</span>
+                        <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value="地址" disabled>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-info text-white col-2">著作数</span>
-                        <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value="著作数" disabled>
+                        <span class="input-group-text bg-info text-white col-2">出版书目数</span>
+                        <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value="出版数" disabled>
                     </div>
 
                 </form>
@@ -77,3 +72,4 @@
 </body>
 
 </html>
+

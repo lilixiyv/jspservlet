@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
-  Date: 2023/12/9
-  Time: 10:40
+  Date: 2023/12/10
+  Time: 18:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>历史订单</title>
+    <title>普通用户管理</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
@@ -28,20 +28,24 @@
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <!-- 侧边导航栏 -->
-        <%@include file="sidebar.jsp"%>
+        <%@include file="admin_sidebar.jsp"%>
 
         <!-- 主要内容区域 -->
         <div id="content">
-            <h1>历史订单</h1>
+            <h1>普通用户</h1>
 
             <div style="height: 80vh; overflow: auto;">
                 <table class="table table-light table-striped table-hover">
                     <thead>
                     <tr class="table-dark">
-                        <th>订单号</th>
-                        <th>更新时间</th>
-                        <th>收货地</th>
-                        <th>费用</th>
+                        <th>账号</th>
+                        <th>昵称</th>
+                        <th>邮箱</th>
+                        <th>电话</th>
+                        <th>等级</th>
+                        <th>购买总量</th>
+                        <th>默认收获地址</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -59,17 +63,19 @@
                     <%for (int i = 1; i <=5; i++) {%>
                     <tr>
                         <%--跳转页面待改变--%>
-                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
                         <td> test </td>
                         <td> test </td>
                         <td> test </td>
-
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>
                     </tr>
                     <%}%>
                     </tbody>
                 </table>
             </div>
-
 
 
 

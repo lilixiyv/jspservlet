@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
-  Date: 2023/12/5
-  Time: 19:19
+  Date: 2023/12/10
+  Time: 18:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>网上书店</title>
+    <title>书目管理</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
@@ -28,13 +28,13 @@
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <!-- 侧边导航栏 -->
-        <%@include file="sidebar.jsp"%>
+        <%@include file="admin_sidebar.jsp"%>
 
         <!-- 主要内容区域 -->
         <div id="content">
-            <h1>书目</h1>
+            <h1>书籍管理</h1>
             <div class="container mt-4">
-<%--                将标签和输入分为两行来解决对齐问题，但当页面过窄时依然会效果不佳--%>
+                <%--                将标签和输入分为两行来解决对齐问题，但当页面过窄时依然会效果不佳--%>
                 <div class="row g-3 align-items-center">
 
                     <div class="col-md-2">
@@ -166,35 +166,46 @@
                         <th>好评率</th>
                         <th>评论数</th>
                         <th>价格</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
-<%--                    <c:forEach var="book" items="${bookList}">--%>
-<%--                        <tr>--%>
-<%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
-<%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
-<%--                            <td>${book.authorName}</td>--%>
-<%--                            <td>${book.pressName}</td>--%>
-<%--                            <td>${book.categoryName}</td>--%>
-<%--                            <td>${book.price}</td>--%>
-<%--                        </tr>--%>
-<%--                    </c:forEach>--%>
+                    <%--                    <c:forEach var="book" items="${bookList}">--%>
+                    <%--                        <tr>--%>
+                    <%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
+                    <%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
+                    <%--                            <td>${book.authorName}</td>--%>
+                    <%--                            <td>${book.pressName}</td>--%>
+                    <%--                            <td>${book.categoryName}</td>--%>
+                    <%--                            <td>${book.price}</td>--%>
+                    <%--                        </tr>--%>
+                    <%--                    </c:forEach>--%>
                     <%for (int i = 1; i <=50; i++) {%>
                     <tr>
                         <%--跳转页面待改变--%>
+<%--                        TODO 链接待改--%>
                         <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
                         <td> test </td>
                         <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>
+                        <td> <a class="custom-link" href="press_detail.jsp?press_name=test"> test </a></td>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
+                        <td> test </td>
                         <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a></td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
                     </tr>
                     <%}%>
                     </tbody>
                 </table>
+
+
+            </div>
+            <div class="row mt-2 justify-content-center">
+                <%--TODO 按钮方法待改变--%>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-outline-secondary w-100" onclick="window.location.href='add_book.jsp'">添加书籍</button>
+                </div>
             </div>
         </div>
     </div>
@@ -208,21 +219,3 @@
 </c:if>
 </body>
 </html>
-
-<%--使用cookie防止用户绕过登录直接进入网页--%>
-<%--<%--%>
-<%--    Cookie[] cookies = request.getCookies();--%>
-<%--    String account = null;--%>
-<%--    if (cookies != null) {--%>
-<%--        for (Cookie cookie : cookies) {--%>
-<%--            if ("account".equals(cookie.getName())) {--%>
-<%--                account = cookie.getValue();--%>
-<%--                break;--%>
-<%--            }--%>
-<%--        }--%>
-<%--    }--%>
-<%--    if (cookies == null || account == null){--%>
-<%--       request.setAttribute("errorMessage", "请先登录！");--%>
-<%--       request.getRequestDispatcher("login.jsp").forward(request,response);--%>
-<%--    }--%>
-<%--%>--%>

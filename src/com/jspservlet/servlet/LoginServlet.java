@@ -23,15 +23,16 @@ public class LoginServlet extends HttpServlet{
         String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
         // 获取权限信息
-        int identity = 0;
+        int identity = 1;
 
 
 
         int error = 0;
         if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
-            request.setAttribute("errorMessage", "账号异常！");
+            request.setAttribute("errorMessage", "账号异常，请尝试重新登录！");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+        // TODO
         /*
         登录
         数据库存储password的哈希值

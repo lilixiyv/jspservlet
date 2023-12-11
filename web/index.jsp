@@ -11,7 +11,7 @@
 <html lang='en'>
   <head>
     <title>index</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/img/webicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
@@ -22,6 +22,7 @@
 <%--  自动跳转到login.jsp页面--%>
     <script>
       window.location.href="login.jsp";
+      <%--window.location.href="<%=request.getRequestURI()+"test/test.jsp"%>"--%>
     </script>
   </body>
 
