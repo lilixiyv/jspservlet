@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
-  Date: 2023/12/9
-  Time: 10:40
+  Date: 2023/12/10
+  Time: 18:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>当前订单</title>
+    <title>普通用户管理</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
@@ -28,24 +28,23 @@
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <!-- 侧边导航栏 -->
-        <%@include file="sidebar.jsp"%>
+        <%@include file="admin_sidebar.jsp"%>
 
         <!-- 主要内容区域 -->
         <div id="content">
-            <h1>当前订单</h1>
+            <h1>普通用户</h1>
 
             <div style="height: 80vh; overflow: auto;">
                 <table class="table table-light table-striped table-hover">
                     <thead>
                     <tr class="table-dark">
-                        <th>书名</th>
-                        <th>出版时间</th>
-                        <th>作者</th>
-                        <th>出版社</th>
-                        <th>分类</th>
-                        <th>好评率</th>
-                        <th>评论数</th>
-                        <th>价格</th>
+                        <th>账号</th>
+                        <th>昵称</th>
+                        <th>邮箱</th>
+                        <th>电话</th>
+                        <th>等级</th>
+                        <th>购买总量</th>
+                        <th>默认收获地址</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -64,10 +63,9 @@
                     <%for (int i = 1; i <=5; i++) {%>
                     <tr>
                         <%--跳转页面待改变--%>
-                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
                         <td> test </td>
-                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a> </td>
+                        <td> test </td>
+                        <td> test </td>
                         <td> test </td>
                         <td> test </td>
                         <td> test </td>
@@ -77,16 +75,6 @@
                     <%}%>
                     </tbody>
                 </table>
-            </div>
-            <div class="row mt-3 justify-content-end">
-                <div class="row col-2">
-                    总金额：
-                </div>
-                <div class="row col-2 justify-content-end">
-                    <button class="btn btn-warning">
-                        购买
-                    </button>
-                </div>
             </div>
 
 

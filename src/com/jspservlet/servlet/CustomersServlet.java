@@ -1,5 +1,4 @@
 package com.jspservlet.servlet;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,8 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/HomeServlet")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/CustomersServlet")
+public class CustomersServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response); // get请求的处理都跳到post请求
@@ -21,27 +20,19 @@ public class HomeServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
-
         HttpSession session = request.getSession();
-        if( session == null || session.getAttribute("session_identity") == null) {
+        if( session == null || session.getAttribute("session_identity") == null){
             request.setAttribute("errorMessage", "请登录！");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("login.jsp");
         } else {
             int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
             if (identity == 0){
-                if (request.getParameter("book_name") == null){
-                    //查询所有结果
-
-
-                } else {
-                    //根据传入参数查询相应结果
-
-                }
-                request.getRequestDispatcher("home.jsp").forward(request,response);
+                request.setAttribute("errorMessage", "身份认证失败！");
+                response.sendRedirect("login.jsp");
             } else {
-                response.sendRedirect("CustomersServlet");
+                // TODO 查询普通用户信息
+                request.getRequestDispatcher("customers.jsp").forward(request,response);
             }
-
         }
     }
 }

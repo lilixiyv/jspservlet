@@ -29,9 +29,10 @@ public class LoginServlet extends HttpServlet{
 
         int error = 0;
         if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
-            request.setAttribute("errorMessage", "账号异常！");
+            request.setAttribute("errorMessage", "账号异常，请尝试重新登录！");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+        // TODO
         /*
         登录
         数据库存储password的哈希值
@@ -61,13 +62,17 @@ public class LoginServlet extends HttpServlet{
                 session.setAttribute("session_identity", identity);
 
 
-                Cookie cookie = new Cookie("account", session.getAttribute("session_account").toString());
-                cookie.setMaxAge(60*60);
-                response.addCookie(cookie);
+//                Cookie cookie = new Cookie("account", session.getAttribute("session_account").toString());
+//                cookie.setMaxAge(60*60);
+//                response.addCookie(cookie);
 
 
+                if (identity == 0){
+                    response.sendRedirect(request.getContextPath()+"/HomeServlet");
+                } else {
+                    response.sendRedirect(request.getContextPath()+"/CustomersServlet");
+                }
 
-                response.sendRedirect(request.getContextPath()+"/HomeServlet");
             }
 
         }
