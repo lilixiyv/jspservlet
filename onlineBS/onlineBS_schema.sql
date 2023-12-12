@@ -1,4 +1,4 @@
-CREATE TABLE author(
+CREATE TABLE IF NOT EXISTS `author`(
     author_name VARCHAR(20) PRIMARY KEY,
     nationality VARCHAR(20) NOT NULL,
     birth YEAR NOT NULL,
@@ -6,18 +6,18 @@ CREATE TABLE author(
     pub_sum INT NOT NULL
 );
 
-CREATE TABLE category(
+CREATE TABLE IF NOT EXISTS `category`(
     category_name VARCHAR(20) PRIMARY KEY,
     sum INT NOT NULL
 );
 
-CREATE TABLE press(
+CREATE TABLE IF NOT EXISTS `press`(
     press_name VARCHAR(20) PRIMARY KEY,
     location VARCHAR(200) NOT NULL,
     all_sum INT NOT NULL
 );
 
-CREATE TABLE book(
+CREATE TABLE IF NOT EXISTS `book`(
     ISBN VARCHAR(13) PRIMARY KEY,
     book_name VARCHAR(100) NOT NULL,
     book_description VARCHAR(200),
@@ -43,13 +43,13 @@ CREATE TABLE book(
 );
 CREATE INDEX ind_book ON book(ISBN);
 
-CREATE TABLE vip_rate(
+CREATE TABLE IF NOT EXISTS `vip_rate`(
     level INT,
     rate DECIMAL(3,2),
     PRIMARY KEY(level,rate)
 );
 
-CREATE TABLE customer(
+CREATE TABLE IF NOT EXISTS `customer`(
     customer_id VARCHAR(20) PRIMARY KEY,
     nickname VARCHAR(25) NOT NULL,
     pw VARCHAR(64) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE customer(
         ON DELETE CASCADE
 );
 
-CREATE TABLE orders(
+CREATE TABLE IF NOT EXISTS `orders`(
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     update_time DATETIME NOT NULL,
     receipt_place VARCHAR(200) NOT NULL,
@@ -83,7 +83,7 @@ ALTER TABLE customer
     Foreign Key (current_order_id)
     REFERENCES orders(order_id);
 
-CREATE TABLE order_book(
+CREATE TABLE IF NOT EXISTS `order_book`(
     ISBN VARCHAR(13),
     order_id INT,
     order_sum INT NOT NULL,
