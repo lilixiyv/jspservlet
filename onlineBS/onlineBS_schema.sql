@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `book`(
     press_name VARCHAR(20) NOT NULL,
     author_name VARCHAR(20) NOT NULL,
     category_name VARCHAR(20) NOT NULL,
-    price INT NOT NULL,
+    price DECIMAL(8,2) NOT NULL,
     CONSTRAINT fk_book_press
         FOREIGN KEY(press_name)
         REFERENCES press(press_name)
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `customer`(
     mail_id VARCHAR(30),
     telephone VARCHAR(11) NOT NULL,
     level INT,
-    purchase_sum INT,
+    purchase_sum DECIMAL(8,2),
     identity VARCHAR(10) NOT NULL,
     current_order_id INT,
     def_location VARCHAR(200),
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `orders`(
     update_time DATETIME NOT NULL,
     receipt_place VARCHAR(200) NOT NULL,
     customer_id VARCHAR(20) NOT NULL,
-    price_sum INT NOT NULL,
+    price_sum DECIMAL(8,2) NOT NULL,
     CONSTRAINT fk_customer_order
         FOREIGN KEY(customer_id)
         REFERENCES customer(customer_id)
