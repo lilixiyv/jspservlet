@@ -22,19 +22,22 @@ public class UserDao {
             ps.setString(1, loginId);
             rs = ps.executeQuery();
             Sha256 passwordSha256 = new Sha256();
-            if (!rs.next()) {
-                return -1;
-            } else if (passwordSha256.sha256(loginPassword).equals(rs.getString(1))){
-                return rs.getString("2").equals("normal")?0:1;
+            if (rs.next()) {
+                if (passwordSha256.sha256(loginPassword).equals(rs.getString(1))){
+                    return rs.getString(2).equals("normal")?0:1;
+                } else {
+                    return -2;
+                }
             } else {
-                return -2;
+                 return -1;
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        return -1;
+        return -3;
     }
 
 

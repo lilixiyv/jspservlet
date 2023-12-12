@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet{
         */
             UserDao userDao = new UserDao();
             identity = userDao.login(account, password);
-            identity = 0;
 
 
             if (identity == -1) {
@@ -53,6 +52,9 @@ public class LoginServlet extends HttpServlet{
                 request.setAttribute("errorMessage", "密码错误！");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
 
+            } else if (identity == -3) {
+                request.setAttribute("errorMessage", "登录异常！");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
 
                 if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {

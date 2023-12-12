@@ -1,3 +1,4 @@
+<%--@elvariable id="author" type="com.jspservlet.entity.Author"--%>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -23,36 +24,30 @@
     <div class="row justify-content-center">
         <div class="card col-md-8">
 
-            <%--书名--%>
-            <%--            <div class="card-header">  </div>--%>
             <div class="card-body">
-                <h3 class="card-title text-center">作者</h3>
+                <h3 class="card-title text-center">${author.name}</h3>
                 <form>
 
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info text-white col-2">国籍</span>
-                        <label for="time"></label><input type="text" class="form-control" id="time" value="国籍" disabled>
+                        <label for="time"></label><input type="text" class="form-control" id="time" value="${author.nationality}" disabled>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info text-white col-2">生日</span>
-                        <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value="生日" disabled>
+                        <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value="${author.birthDay}" disabled>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info text-white col-2">著作数</span>
-                        <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value="著作数" disabled>
+                        <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value="${author.publishNumber}" disabled>
                     </div>
 
                 </form>
                 <div class="card">
                     <h5 class="card-title text-center text-success">简介</h5>
                     <div class="card-body">
-                        aosidhgpoighpwei
-                        asdopghapoiewg
-                        asdl;ghpweihg[
-                        ';asdgpohawegihap
-                        adsguoeuhiuh
+                        ${author.description}
                     </div>
                 </div>
 

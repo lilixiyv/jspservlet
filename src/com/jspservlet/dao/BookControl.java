@@ -234,18 +234,30 @@ public class BookControl {
             ps.setString(1, name);
             rs = ps.executeQuery();
             author.updateName(name);
-            author.updateNationality(rs.getString(2));
-            author.updateBirthDay(rs.getString(3));
-            author.updateDescription(rs.getString(4));
-            author.updatePublishNumber(rs.getInt(5));
-            List<Book> BookList = new ArrayList<>();
-            while (rs.next()) {
+            if (rs.next()) {
+                author.updateNationality(rs.getString(2));
+                author.updateBirthDay(rs.getString(3));
+                author.updateDescription(rs.getString(4));
+                author.updatePublishNumber(rs.getInt(5));
+                List<Book> BookList = new ArrayList<>();
                 book = new Book();
                 book.setIsbn(rs.getString(6));
                 book.setTitle(rs.getString(7));
                 BookList.add(book);
+
+                while (rs.next()){
+                    book = new Book();
+                    book.setIsbn(rs.getString(6));
+                    book.setTitle(rs.getString(7));
+                    BookList.add(book);
+                };
+                author.updatePublishBook(BookList);
+
             }
-            author.updatePublishBook(BookList);
+
+
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();
