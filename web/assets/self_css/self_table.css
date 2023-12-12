@@ -1,0 +1,18 @@
+thead {
+    position: sticky;
+    top: 0;
+    /*background-color: #343a40; !* 你的表头背景颜色 *!*/
+    /*color: #fff; !* 你的表头文字颜色 *!*/
+    z-index: 1;
+}
+
+.custom-link {
+    color: black; /* 链接默认颜色 */
+    text-decoration: none; /* 去除下划线 */
+    transition: color 0.3s ease; /* 颜色变化动画 */
+}
+
+/* 定义悬停时的样式 */
+.custom-link:hover {
+    color: rgb(128, 128, 128); /* 悬停时的颜色 */
+}

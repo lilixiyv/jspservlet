@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
-  Date: 2023/12/5
-  Time: 15:18
+  Date: 2023/12/11
+  Time: 11:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-    <title>用户注册</title>
+    <title>添加管理员用户</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
@@ -37,13 +37,10 @@
             let phone_number = document.getElementById("rg_phone_number").value;
             let password = document.getElementById("rg_password").value;
             let confirm_password = document.getElementById("rg_confirm_password").value;
-            let address = document.getElementById("rg_address").value;
-
-            let form = document.getElementById("rg_form");
-
+            let form = document.getElementById("rg_form")
             let is_valid_account = /^[a-zA-Z0-9]{8,16}$/.test(account);
 
-            if (account === '' || username === '' || email === '' || phone_number === '' || address === '' || password === '' || confirm_password === '')
+            if (account === '' || username === '' || email === '' || phone_number === '' || password === '' || confirm_password === '')
             {
                 alert("注册信息填写不完整！");
                 return false;
@@ -88,7 +85,7 @@
     <div class="row justify-content-center">
         <div class="card col-md-4">
             <div class="card-body">
-                <h3 class="card-title text-center">注册</h3>
+                <h3 class="card-title text-center">添加管理员用户</h3>
                 <form action="RegisterServlet" method="post" id="rg_form">
 
                     <div class="input-group mb-3">
@@ -110,11 +107,6 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-info"><i class="bi bi-buildings text-white"></i></span>
-                        <label for="rg_address"></label><input type="text" class="form-control" id="rg_address" name="rg_address" placeholder="地址">
-                    </div>
-
-                    <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
                         <label for="rg_password"></label><input type="password" class="form-control" id="rg_password" name="rg_password" placeholder="密码">
                     </div>
@@ -124,10 +116,13 @@
                         <label for="rg_confirm_password"></label><input type="password" class="form-control" id="rg_confirm_password" placeholder="确认密码">
                     </div>
 
-                    <div class="d-grid">
-
-                        <button type="button" class="btn btn-success w-100 bg-success" onclick="validateForm()">注册</button>
-
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-success w-100" onclick="window.location.href='add_admin.jsp'">添加用户</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()">返回</button>
+                        </div>
                     </div>
 
 

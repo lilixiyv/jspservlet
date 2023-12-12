@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: wsql
+  User: Lenovo
   Date: 2023/12/5
   Time: 8:59
   To change this template use File | Settings | File Templates.
@@ -11,7 +11,7 @@
 <html lang='en'>
 <head>
     <title>用户登录</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/img/webicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/img/web_icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
@@ -33,12 +33,14 @@
             let account = document.getElementById("lg_account").value;
             let password = document.getElementById("lg_password").value;
             let form = document.getElementById("lg_form");
+            let is_valid_account = /^[a-zA-Z0-9]{8,16}$/.test(account);
 
             if (account === '' || password === '')
             {
                 alert("登录信息未正确填写!");
-            }
-            else {
+            } else if (!is_valid_account) {
+                alert("账号必须由字母和数字组成，且长度在8到16之间！");
+            } else {
                 form.submit();
             }
 
@@ -60,6 +62,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
                         <label for="lg_account"></label><input type="text" class="form-control" id="lg_account" name="lg_account" placeholder="账号">
+                        <div id="lg_account_feedback" class="invalid-feedback"></div>
                     </div>
 
                     <div class="input-group mb-3">

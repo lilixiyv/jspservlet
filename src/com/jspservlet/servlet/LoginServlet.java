@@ -1,11 +1,10 @@
 package com.jspservlet.servlet;
 
+import com.jspservlet.dao.UserDao;
+
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import javax.servlet.*;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/LoginServlet")
@@ -21,19 +20,31 @@ public class LoginServlet extends HttpServlet{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
+
+
         String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
-        int error = 0;
+        // 获取权限信息
+        int identity = 0;
 
+
+
+        int error = 0;
+        if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
+            request.setAttribute("errorMessage", "账号异常，请尝试重新登录！");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        // TODO
         /*
         登录
         数据库存储password的哈希值
         故先对password求哈希，然后在数据库中查询该用户信息
-        其中account可能是username/email/phone_number中的任一种
         若account不存在，则将error置为1
         若password错误，则将error置为2
         若存在，则返回相关信息，可以为JAVA类
-         */
+        */
+        UserDao userDao = new UserDao();
+
 
         if (error == 1) {
             request.setAttribute("errorMessage", "用户不存在！");
@@ -44,7 +55,30 @@ public class LoginServlet extends HttpServlet{
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } else {
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            //使用Cookie来防止未登录就直接访问用户界面的情况
+            if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
+                request.setAttribute("errorMessage", "登录异常！");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                HttpSession session = request.getSession();
+
+                session.setAttribute("session_account", account);
+                session.setAttribute("session_identity", identity);
+
+
+//                Cookie cookie = new Cookie("account", session.getAttribute("session_account").toString());
+//                cookie.setMaxAge(60*60);
+//                response.addCookie(cookie);
+
+
+                if (identity == 0){
+                    response.sendRedirect(request.getContextPath()+"/HomeServlet");
+                } else {
+                    response.sendRedirect(request.getContextPath()+"/CustomersServlet");
+                }
+
+            }
+
         }
 
     }
