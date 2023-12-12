@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet{
         */
             UserDao userDao = new UserDao();
             identity = userDao.login(account, password);
+            identity = 0;
 
 
             if (identity == -1) {

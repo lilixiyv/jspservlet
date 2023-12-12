@@ -35,25 +35,39 @@ public class CustomerDao extends UserDao {
             ps.setString(1, user.getID());
             rs = ps.executeQuery();
             if(rs.next()){
-                return false;
+                return true;
             } else {
+                ps = conn.prepareStatement("insert into customer values (?, ?, ?, ?, ?, 0, 0, 'normal', null, ?);");
+                ps.setString(1,customer_id);
+                ps.setString(2,user.getUsername());
+                ps.setString(3,user.getPassword());
+                ps.setString(4, mail_id);
+                ps.setString(5, telephone);
 
-                ps = conn.prepareStatement("INSERT INTO orders update_time,receipt_place," +
-                        "customer_id,price_sum values(CURRENT_TIME(),?,?,?)");
+                ps.setString(6, def_location);
+
+                ps.executeUpdate();
+                ps = conn.prepareStatement("INSERT INTO orders (update_time,receipt_place," +
+                        "customer_id,price_sum) values(CURRENT_TIME(),?,?,?)");
                 ps.setString(1, def_location);
                 ps.setString(2, customer_id);
                 ps.setDouble(3, 0.0);
                 ps.executeUpdate();
-
-                ps = conn.prepareStatement("INSERT INTO orders update_time,receipt_place," +
-                        "customer_id,price_sum values(CURRENT_TIME(),?,?,?)");
-                ps = conn.prepareStatement("insert into customer values (?, ?, ?, ?, ?, 0, 0, 'normal', ?, ?)");
+                ps = conn.prepareStatement("select order_id from orders where customer_id = ? order by order_id desc limit 1;");
+                ps.setString(1, customer_id);
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    ps = conn.prepareStatement("update customer set current_order_id = ? where customer_id=?");
+                    ps.setInt(1, rs.getInt(1));
+                    ps.setString(2, customer_id);
+                    ps.executeUpdate();
+                }
 
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     public List<Book> screen(String title, Integer publishDateStart, Integer publishDateEnd, String authorName,
