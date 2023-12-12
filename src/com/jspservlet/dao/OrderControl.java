@@ -43,13 +43,20 @@ public class OrderControl {
             ps.setDouble(2, customer.getTotalCost());
             ps.setString(3 ,customerId);
             ps.executeUpdate();
-            ps = conn.prepareStatement("INSERT INTO orders order_id,update_time,receipt_place," +
-                    "customer_id,price_sum values(?,CURRENT_TIME(),?,?,?)");
-            ps.setInt(1, customer.getOrders().size() + 1);
-            ps.setString(2, customer.getLocation());
-            ps.setString(3, customerId);
-            ps.setDouble(4, 0.0);
+            ps = conn.prepareStatement("INSERT INTO orders update_time,receipt_place," +
+                    "customer_id,price_sum values(CURRENT_TIME(),?,?,?)");
+
+            ps.setString(1, customer.getLocation());
+            ps.setString(2, customerId);
+            ps.setDouble(3, 0.0);
             ps.executeUpdate();
+//            ps = conn.prepareStatement("INSERT INTO orders order_id,update_time,receipt_place," +
+//                    "customer_id,price_sum values(?,CURRENT_TIME(),?,?,?)");
+//            ps.setInt(1, customer.getOrders().size() + 1);
+//            ps.setString(2, customer.getLocation());
+//            ps.setString(3, customerId);
+//            ps.setDouble(4, 0.0);
+//            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,9 +68,12 @@ public class OrderControl {
         PreparedStatement ps;
         ResultSet rs;
         try {
-            ps = conn.prepareStatement("select book_name, price " +
-                    "from orders natural join order_book natural join" +
-                    "book where customer_id = ?;");
+//            ps = conn.prepareStatement("select book_name, price " +
+//                    "from orders natural join order_book natural join" +
+//                    "book where customer_id = ?;");
+            ps = conn.prepareStatement("select book.* " +
+                    "from book natural join order_book natural join orders" +
+                    "natural join customer where customer.current_order_id = order_id and customer.customer_id = ?;");
             ps.setString(1, customerId);
             rs = ps.executeQuery();
             while (rs.next()) {

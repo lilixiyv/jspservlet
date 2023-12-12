@@ -34,7 +34,22 @@ public class CustomerDao extends UserDao {
             ps = conn.prepareStatement("select * from customer where customer_id = ?");
             ps.setString(1, user.getID());
             rs = ps.executeQuery();
-            return rs.next();
+            if(rs.next()){
+                return false;
+            } else {
+
+                ps = conn.prepareStatement("INSERT INTO orders update_time,receipt_place," +
+                        "customer_id,price_sum values(CURRENT_TIME(),?,?,?)");
+                ps.setString(1, def_location);
+                ps.setString(2, customer_id);
+                ps.setDouble(3, 0.0);
+                ps.executeUpdate();
+
+                ps = conn.prepareStatement("INSERT INTO orders update_time,receipt_place," +
+                        "customer_id,price_sum values(CURRENT_TIME(),?,?,?)");
+                ps = conn.prepareStatement("insert into customer values (?, ?, ?, ?, ?, 0, 0, 'normal', ?, ?)");
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

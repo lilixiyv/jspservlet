@@ -5,6 +5,7 @@ import com.jspservlet.entity.Book;
 import com.jspservlet.entity.Category;
 import com.jspservlet.entity.PublishHouse;
 import com.jspservlet.util.dbConnectUtil;
+import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class BookControl {
         PreparedStatement ps;
         ResultSet rs;
         try {
-            ps = conn.prepareStatement("select * from book;");
+            ps = conn.prepareStatement("select * from book order by price;");
             rs = ps.executeQuery();
             while (rs.next()) {
                 PublishHouse publishHouse = new PublishHouse();
@@ -40,7 +41,7 @@ public class BookControl {
                         publishHouse,
                         author,
                         rs.getString(3),
-                        rs.getString(4), // TODO
+                        rs.getString(4).substring(0,4), // TODO
                         category,
                         rs.getInt(5),
                         rs.getDouble(6),
@@ -76,36 +77,62 @@ public class BookControl {
         String nullString = "";
         boolean full = false;
         try {
+//            String sql = "select ISBN,book_name,book_description,YEAR(time),comment_num,pos_rate,press_name,author_name,category_name,price from book ";
             String sql = "select * from book ";
+
             if (!title.equals(nullString)) {
-                sql += addString(full) + "book_name = " + title + " ";
+                sql += addString(full) + "book_name = '" + title +"' ";
                 full = true;
             }
             if (!authorName.equals(nullString)) {
-                sql += addString(full) + "auther_name = " + authorName + " ";
+                sql += addString(full) + "author_name = '" + authorName + "' ";
                 full = true;
             }
             if (!publishHouseName.equals(nullString)) {
-                sql += addString(full) + "press_name = " + publishHouseName + " ";
+                sql += addString(full) + "press_name = '" + publishHouseName + "' ";
                 full = true;
             }
             if (!categoryName.equals(nullString)) {
-                sql += addString(full) + "category_name = " + categoryName + " ";
+                sql += addString(full) + "category_name = '" + categoryName + "' ";
             }
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                book = new Book();
-                book.setTitle(rs.getString(1));
-                Author author = new Author();
-                author.updateName(rs.getString(2));
-                book.setAuthor(author);
+//                book = new Book();
+//                book.setIsbn(rs.getString(1));
+//                book.setTitle(rs.getString(2));
+//                book.setDescription(rs.getString(3));
+//                book.setPublishDate(rs.getString(4));
+//                book.setReviewAmount(Integer.parseInt(rs.getString(5)));
+//                book.setGoodRate(Double.parseDouble(rs.getString(6)));
+//                PublishHouse publish_house = new PublishHouse();
+//                publish_house.setName(rs.getString(7));
+//                book.setPublishHouse(publish_house);
+//                Author author = new Author();
+//                author.updateName(rs.getString(8));
+//                book.setAuthor(author);
+//                Category category = new Category();
+//                category.setCategoryName(rs.getString(9));
+//                book.setCategory(category);
+//                book.setPrice(Double.parseDouble(rs.getString(10)));
+//                bookList.add(book);
                 PublishHouse publishHouse = new PublishHouse();
-                publishHouse.setName(rs.getString(3));
-                book.setPublishHouse(publishHouse);
+                publishHouse.setName(rs.getString(7));
+                Author author = new Author();
+                author.updateName(rs.getString(8));
                 Category category = new Category();
-                category.setCategoryName(rs.getString(4));
-                book.setCategory(category);
+                category.setCategoryName(rs.getString(9));
+                book = new com.jspservlet.entity.Book(rs.getString(2),
+                        rs.getString(1),
+                        publishHouse,
+                        author,
+                        rs.getString(3),
+                        rs.getString(4).substring(0,4), // TODO
+                        category,
+                        rs.getInt(5),
+                        rs.getDouble(6),
+                        rs.getDouble(10),
+                        0);
                 bookList.add(book);
             }
         } catch (SQLException e) {

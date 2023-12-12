@@ -1,5 +1,6 @@
 package com.jspservlet.dao;
 
+import com.jspservlet.entity.User;
 import com.jspservlet.util.dbConnectUtil;
 
 import com.jspservlet.entity.Sha256;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    public boolean login(String loginId, String loginPassword) {
+    public int login(String loginId, String loginPassword) {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps;
         ResultSet rs;
@@ -21,13 +22,19 @@ public class UserDao {
             ps.setString(1, loginId);
             rs = ps.executeQuery();
             Sha256 passwordSha256 = new Sha256();
-            return passwordSha256.sha256(loginPassword).equals(rs.getString(1));
+            if (!rs.next()) {
+                return -1;
+            } else if (passwordSha256.sha256(loginPassword).equals(rs.getString(1))){
+                return rs.getString("2").equals("normal")?0:1;
+            } else {
+                return -2;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return -1;
     }
 
 

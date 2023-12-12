@@ -79,9 +79,11 @@ public class ManageAccount {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps;
         ResultSet rs;
+//        ps = conn.prepareStatement("insert into customer " +
+//                "customer_id, nickname, pw, mail_id, telephone, level, " +
+//                "purchase_sum, identity, current_order_id, def_location " +
+//                "values (?, ?, ?, ?, ?, 0, 0, 'super', 0, ?);");
         ps = conn.prepareStatement("insert into customer " +
-                "customer_id, nickname, pw, mail_id, telephone, level, " +
-                "purchase_sum, identity, current_order_id, def_location " +
                 "values (?, ?, ?, ?, ?, 0, 0, 'super', 0, ?);");
         ps.setString(1, admin.getID());
         ps.setString(2, admin.getUsername());
