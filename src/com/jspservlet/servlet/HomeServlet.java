@@ -56,126 +56,44 @@ public class HomeServlet extends HttpServlet {
                     Double[] rate = new Double[2];
                     Double[] double_price = new Double[2];
                     Integer[] integer_comment = new Integer[2];
-                    String type = null;
-                    Integer rise = null;
-                    switch (time){
-                        case "-1":
-                            publish_time[0] = 0;
-                            publish_time[1] = 3000;
-                            break;
-                        case "0":
-                            publish_time[0] = 0;
-                            publish_time[1] = 2010;
-                            break;
-                        case "1":
-                            publish_time[0] = 2010;
-                            publish_time[1] = 2015;
-                            break;
-                        case "2":
-                            publish_time[0] = 2015;
-                            publish_time[1] = 2020;
-                            break;
-                        case "3":
-                            publish_time[0] = 2020;
-                            publish_time[1] = 3000;
-                            break;
+                    String type;
+                    int rise;
+                    int i;
 
-                    }
-                    switch (pos_rate){
-                        case "-1":
-                            rate[0] = -1.0;
-                            rate[1] = 2.0;
-                            break;
-                        case "0":
-                            rate[0] = -1.0;
-                            rate[1] = 0.2;
-                            break;
-                        case "1":
-                            rate[0] = 0.2;
-                            rate[1] = 0.5;
-                            break;
-                        case "2":
-                            rate[0] = 0.5;
-                            rate[1] = 0.8;
-                            break;
-                        case "3":
-                            rate[0] = 0.8;
-                            rate[1] = 0.9;
-                            break;
-                        case "4":
-                            rate[0] = 0.9;
-                            rate[1] = 2.0;
-                            break;
+                    String[] str_split;
 
-                    }
-                    switch (price){
-                        case "-1":
-                            double_price[0] = -1.0;
-                            double_price[1] = 10000.0;
-                            break;
-                        case "0":
-                            double_price[0] = -1.0;
-                            double_price[1] = 20.0;
-                            break;
-                        case "1":
-                            double_price[0] = 20.0;
-                            double_price[1] = 50.0;
-                            break;
-                        case "2":
-                            double_price[0] = 50.0;
-                            double_price[1] = 100.0;
-                            break;
-                        case "3":
-                            double_price[0] = 100.0;
-                            double_price[1] = 10000.0;
-                            break;
-                    }
-                    switch (comment_num) {
-                        case "-1":
-                            integer_comment[0] = -1;
-                            integer_comment[1] = 1000;
-                            break;
-                        case "0":
-                            integer_comment[0] = -1;
-                            integer_comment[1] = 5;
-                            break;
-                        case "1":
-                            integer_comment[0] = 5;
-                            integer_comment[1] = 10;
-                            break;
-                        case "2":
-                            integer_comment[0] = 10;
-                            integer_comment[1] = 15;
-                            break;
-                        case "3":
-                            integer_comment[0] = 15;
-                            integer_comment[1] = 20;
-                            break;
-                        case "4":
-                            integer_comment[0] = 20;
-                            integer_comment[1] = 1000;
-                            break;
-
+                    str_split = time.split(" ", 2);
+                    i = 0;
+                    // foreach遍历前面的变量必须在foreach中声明
+                    for (String substr : str_split) {
+                        publish_time[i] = Integer.parseInt(substr);
+                        i ++;
                     }
 
-                    switch (sort_order){
-                        case "0":
-                            type = "price";
-                            rise = 0;
-                            break;
-                        case "1":
-                            type = "price";
-                            rise = 1;
-                            break;
-                        case "2":
-                            type = "pos_rate";
-                            rise = 0;
-                            break;
-                        case "3":
-                            type = "pos_rate";
-                            rise = 1;
-                            break;
+                    str_split = pos_rate.split(" ", 2);
+                    i = 0;
+                    for (String substr : str_split) {
+                        rate[i] = Double.parseDouble(substr);
+                        i++;
                     }
+
+                    str_split = price.split(" ", 2);
+                    i = 0;
+                    for (String substr : str_split) {
+                        double_price[i] = Double.parseDouble(substr);
+                        i++;
+                    }
+
+                    str_split = comment_num.split(" ", 2);
+                    i = 0;
+                    for (String substr : str_split) {
+                        integer_comment[i] = Integer.parseInt(substr);
+                        i++;
+                    }
+
+                    str_split = sort_order.split(" ", 2);
+                    type = str_split[0];
+                    rise = Integer.parseInt(str_split[1]);
 
                     bookList = bookControl.inquire(book_name, publish_time, author, press_name, category, rate, integer_comment, double_price, type, rise);
                 }

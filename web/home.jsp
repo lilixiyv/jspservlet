@@ -71,11 +71,11 @@
                     </div>
                     <div class="col-md-1">
                         <select class="form-select" id="publishDate" name="time">
-                            <option selected value="-1">任意</option>
-                            <option value="0">2010之前</option>
-                            <option value="1">2010-15</option>
-                            <option value="2">2015-20</option>
-                            <option value="3">2020及之后</option>
+                            <option selected value="0 3000">任意</option>
+                            <option value="0 2010">2010之前</option>
+                            <option value="2010 2015">2010-15</option>
+                            <option value="2015 2020">2015-20</option>
+                            <option value="2020 3000">2020及之后</option>
 
                         </select>
                     </div>
@@ -109,42 +109,42 @@
                     </div>
                     <div class="col-md-1">
                         <select class="form-select" id="rating" name="pos_rate">
-                            <option selected value="-1">任意</option>
-                            <option value="0">&lt;20%</option>
-                            <option value="1">20%-50%</option>
-                            <option value="2">50%-80%</option>
-                            <option value="3">80%-90%</option>
-                            <option value="4">&ge;90%</option>
+                            <option selected value="-1.0 2.0">任意</option>
+                            <option value="-1.0 0.2">&lt;20%</option>
+                            <option value="0.2 0.5">20%-50%</option>
+                            <option value="0.5 0.8">50%-80%</option>
+                            <option value="0.8 0.9">80%-90%</option>
+                            <option value="0.9 2.0">&ge;90%</option>
 
                         </select>
                     </div>
                     <div class="col-md-1">
                         <select class="form-select" id="commentCount" name="comment_num">
-                            <option selected value="-1">任意</option>
-                            <option value="0">&lt;5</option>
-                            <option value="1">5-10</option>
-                            <option value="2">10-15</option>
-                            <option value="3">15-20</option>
-                            <option value="4">&ge;20</option>
+                            <option selected value="-1 10000">任意</option>
+                            <option value="-1 5">&lt;5</option>
+                            <option value="5 10">5-10</option>
+                            <option value="10 15">10-15</option>
+                            <option value="15 20">15-20</option>
+                            <option value="20 10000">&ge;20</option>
 
                         </select>
                     </div>
                     <div class="col-md-1">
                         <select class="form-select" id="price" name="price">
-                            <option selected value="-1">任意</option>
-                            <option value="0">&lt;20</option>
-                            <option value="1">20-50</option>
-                            <option value="2">50-100</option>
-                            <option value="3">&ge;100</option>
+                            <option selected value="-1 10000">任意</option>
+                            <option value="-1 20">&lt;20</option>
+                            <option value="20 50">20-50</option>
+                            <option value="50 100">50-100</option>
+                            <option value="100 10000">&ge;100</option>
 
                         </select>
                     </div>
                     <div class="col-md-2">
                         <select class="form-select" id="sortOrder" name="sort_order">
-                            <option selected value="0">按价格升序</option>
-                            <option value="1">按价格降序</option>
-                            <option value="2">按好评率升序</option>
-                            <option value="3">按好评率降序</option>>
+                            <option selected value="price 0">按价格升序</option>
+                            <option value="price 1">按价格降序</option>
+                            <option value="pos_rate 0">按好评率升序</option>
+                            <option value="pos_rate 1">按好评率降序</option>>
 
                         </select>
                     </div>
