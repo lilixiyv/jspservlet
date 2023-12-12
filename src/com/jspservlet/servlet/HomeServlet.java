@@ -100,7 +100,8 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("bookList", bookList);
                 request.getRequestDispatcher("home.jsp").forward(request,response);
             } else {
-                response.sendRedirect("CustomersServlet");
+                request.setAttribute("errorMessage", "登录异常！");
+                response.sendRedirect("login.jsp");
             }
 
         }

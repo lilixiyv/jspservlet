@@ -40,7 +40,7 @@ public class BookControl {
                         publishHouse,
                         author,
                         rs.getString(3),
-                        rs.getString(7),
+                        rs.getString(4), // TODO
                         category,
                         rs.getInt(5),
                         rs.getDouble(6),

@@ -6,7 +6,7 @@ public class dbConnectUtil {
     // initial
     static{
         try {
-            Class.forName("fill className"); // fill className
+            Class.forName("com.mysql.cj.jdbc.Driver"); // fill className
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -15,9 +15,9 @@ public class dbConnectUtil {
     public static Connection connect(){
         Connection conn = null;
         try {
-            String url = ""; // need to fill url
-            String username = "root";
-            String password = "123456";
+            String url = "jdbc:mysql://localhost:3306/dbsc_lab3?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            String username = "dbsc_lab3";
+            String password = "dbsc";
             conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             e.printStackTrace();

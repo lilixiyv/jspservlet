@@ -11,7 +11,6 @@ public class Book {
     private Integer reviewAmount;
     private Double goodRate;
     private Double price;
-
     private Integer surplus;
 
     public Book() {

@@ -67,6 +67,7 @@
 <c:if test = "${not empty errorMessage}">
     <script>
         alert("${errorMessage}");
+        window.location.href="home.jsp";
     </script>
 </c:if>
 </body>

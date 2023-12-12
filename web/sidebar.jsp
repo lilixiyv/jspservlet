@@ -12,7 +12,7 @@
     <p id="sidebar-heading">网上书店</p>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("home.jsp")) ? " active" : "" %>" href="home.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("HomeServlet")) ? " active" : "" %>" href="HomeServlet">
                 首页
             </a>
         </li>

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="assets/self_css/self_table.css">
 
 </head>
-<body>
+<body onload="">
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <!-- 侧边导航栏 -->
@@ -170,29 +170,33 @@
                     </thead>
                     <tbody>
                     <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
+
                     <c:forEach var="book" items="${bookList}">
                         <tr>
                             <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->
-                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>
-                            <td>${book.authorName}</td>
-                            <td>${book.pressName}</td>
-                            <td>${book.categoryName}</td>
+                            <td><a class="custom-link" href="BookDetailServlet?isbn=${book.isbn}">${book.title}</a></td>
+                            <td>${book.publishDate}</td>
+                            <td><a class="custom-link" href="AuthorDetailServlet?author_name=${book.author.name}"> ${book.author.name}</a></td>
+                            <td><a class="custom-link" href="PressDetailServlet?press_name=${book.publishHouse.name}">${book.publishHouse.name}</a></td>
+                            <td>${book.category.categoryName}</td>
+                            <td>${book.goodRate}</td>
+                            <td>${book.reviewAmount}</td>
                             <td>${book.price}</td>
                         </tr>
                     </c:forEach>
-                    <%for (int i = 1; i <=50; i++) {%>
-                    <tr>
-                        <%--跳转页面待改变--%>
-                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
-                        <td> test </td>
-                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a></td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                    </tr>
-                    <%}%>
+<%--                    <%for (int i = 1; i <=50; i++) {%>--%>
+<%--                    <tr>--%>
+<%--                        &lt;%&ndash;跳转页面待改变&ndash;%&gt;--%>
+<%--                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>--%>
+<%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a></td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> test </td>--%>
+<%--                    </tr>--%>
+<%--                    <%}%>--%>
                     </tbody>
                 </table>
             </div>
