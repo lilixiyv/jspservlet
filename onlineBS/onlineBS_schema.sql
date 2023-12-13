@@ -81,7 +81,8 @@ CREATE INDEX ind_order ON orders(order_id);
 ALTER TABLE customer
     ADD CONSTRAINT fk_current
     Foreign Key (current_order_id)
-    REFERENCES orders(order_id);
+    REFERENCES orders(order_id)
+    ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS `order_book`(
     ISBN VARCHAR(13),
