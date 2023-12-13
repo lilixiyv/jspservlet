@@ -45,13 +45,13 @@
                         <label for="update_time" class="form-label">更新时间</label>
                     </div>
                     <div class="col-md-2">
-                        <label for="receipt_place" class="form-label">收获地址</label>
+                        <label for="receipt_place" class="form-label">收货地址</label>
                     </div>
                     <div class="col-md-2">
                         <%
                             int vip_level = Integer.parseInt(request.getAttribute("vip_level").toString());
                         %>
-                        <label for="price_sum" class="form-label">总金额<%=vip_level==0?"":"（已打"+(10-vip_level)+"折）"%>></label>
+                        <label for="price_sum" class="form-label">总金额<%=vip_level==0?"":"（已打"+(10-vip_level)+"折）"%></label>
                     </div>
                 </div>
                 <form class="row g-3 align-items-center" method="post" action="HomeServlet">
@@ -67,9 +67,10 @@
                         <input type="text" class="form-control" id="receipt_place" name="press_name" value="${current_order.address}">
                     </div>
                     <div class="col-md-2">
-                        <input type="text" class="form-control" id="price_sum" name="press_name" value="${current_order.address}" disabled>
+                        <input type="text" class="form-control" id="price_sum" name="press_name" value="${current_order.price}" disabled>
                     </div>
-                    <div class="col-md-1">
+
+                    <div class="col-md-1 ms-auto">
 <%--                        TODO--%>
                         <button type="submit" class="btn btn-outline-warning w-100">提交订单</button>
                     </div>
@@ -80,46 +81,39 @@
                     <thead>
                     <tr class="table-dark">
                         <th>书名</th>
-                        <th>出版时间</th>
-                        <th>作者</th>
-                        <th>出版社</th>
-                        <th>分类</th>
-                        <th>好评率</th>
-                        <th>评论数</th>
                         <th>价格</th>
+                        <th>购买数量</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
                         <%--@elvariable id="current_order_books" type="java.util.List"--%>
-                        <c:forEach var="book" items="${current_order_books}">
+                        <c:forEach var="order_book" items="${current_order_books}">
                             <tr>
 
-                                <td><a class="custom-link" href="BookDetailServlet?isbn=${book.isbn}&in=1">${book.title}</a></td>
-                                <td>${book.publishDate}</td>
-                                <td><a class="custom-link" href="AuthorDetailServlet?author_name=${book.author.name}"> ${book.author.name}</a></td>
-                                <td><a class="custom-link" href="PressDetailServlet?press_name=${book.publishHouse.name}">${book.publishHouse.name}</a></td>
-                                <td>${book.category.categoryName}</td>
-                                <td>${book.goodRate}</td>
-                                <td>${book.reviewAmount}</td>
-                                <td>${book.price}</td>
+                                <td><a class="custom-link" href="BookDetailServlet?isbn=${order_book.ISBN}&in=1">${order_book.book_name}</a></td>
+                                <td>${order_book.price}</td>
+                                <td>
+                                    <label>
+                                        <input type="number" name="quantity" min="1" value="${order_book.order_sum}">
+                                    </label>
+                                </td>
+
+                                <td> <a class="custom-link" href="MoveCurrentOrderBookServlet?isbn=${order_book.ISBN}&order_id=${current_order.orderNumber}">移除</a></td>
                             </tr>
                         </c:forEach>
-<%--                    <%for (int i = 1; i <=5; i++) {%>--%>
 <%--                    <tr>--%>
-<%--                        &lt;%&ndash;跳转页面待改变&ndash;%&gt;--%>
-<%--                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>--%>
-<%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a> </td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> test </td>--%>
+
+<%--                        <td>test</td>--%>
+<%--                        <td>test</td>--%>
+<%--                        <td>--%>
+<%--                            <label>--%>
+<%--                                <input type="number" name="quantity" min="1" value="test">--%>
+<%--                            </label>--%>
+<%--                        </td>--%>
 <%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>--%>
 <%--                    </tr>--%>
-<%--                    <%}%>--%>
                     </tbody>
                 </table>
             </div>

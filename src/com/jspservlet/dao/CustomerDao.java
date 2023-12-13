@@ -67,7 +67,7 @@ public class CustomerDao extends UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     public List<Book> screen(String title, Integer publishDateStart, Integer publishDateEnd, String authorName,
@@ -123,7 +123,7 @@ public class CustomerDao extends UserDao {
         new OrderControl().payOrder(customerId);
     }
 
-    public List<Book> getCurrentOrder(String customerId) {
+    public List<OrderBook> getCurrentOrder(String customerId) {
         return new OrderControl().checkOrder(customerId);
     }
 

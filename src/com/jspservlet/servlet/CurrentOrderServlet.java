@@ -4,6 +4,7 @@ import com.jspservlet.dao.CustomerDao;
 import com.jspservlet.dao.OrderControl;
 import com.jspservlet.entity.Book;
 import com.jspservlet.entity.Order;
+import com.jspservlet.entity.OrderBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,10 +40,11 @@ public class CurrentOrderServlet extends HttpServlet {
             } else {
                 String account = session.getAttribute("session_account").toString();
                 Order order = new OrderControl().getOrderByCustomer(account);
-                List<Book> bookList = new CustomerDao().getCurrentOrder(account);
+                List<OrderBook> orderBookList = new CustomerDao().getCurrentOrder(account);
+
                 int vip_level = new CustomerDao().getVipLevel(account);
                 request.setAttribute("current_order",order);
-                request.setAttribute("current_order_books", bookList);
+                request.setAttribute("current_order_books", orderBookList);
                 request.setAttribute("vip_level", vip_level);
                 request.getRequestDispatcher("current_order.jsp").forward(request,response);
 
