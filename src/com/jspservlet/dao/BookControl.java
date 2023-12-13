@@ -273,20 +273,26 @@ public class BookControl {
         ResultSet rs;
         try {
             ps = conn.prepareStatement("select press.*,book.ISBN,book.book_name " +
-                    "from press,book where press.press_name=book.press_name and press_name=?");
+                    "from press,book where press.press_name=book.press_name and book.press_name=?");
             ps.setString(1, publishHouseName);
             rs = ps.executeQuery();
-            publishHouse.setName(publishHouseName);
-            publishHouse.setLocation(rs.getString(2));
-            publishHouse.setTotalPublish(rs.getInt(3));
-            List<Book> BookList = new ArrayList<>();
-            while (rs.next()) {
+            if(rs.next()){
+                publishHouse.setName(publishHouseName);
+                publishHouse.setLocation(rs.getString(2));
+                publishHouse.setTotalPublish(rs.getInt(3));
+                List<Book> BookList = new ArrayList<>();
                 book = new Book();
                 book.setIsbn(rs.getString(4));
                 book.setTitle(rs.getString(5));
                 BookList.add(book);
+                while (rs.next()) {
+                    book = new Book();
+                    book.setIsbn(rs.getString(4));
+                    book.setTitle(rs.getString(5));
+                    BookList.add(book);
+                }
+                publishHouse.setBookList(BookList);
             }
-            publishHouse.setBookList(BookList);
         } catch (SQLException e) {
             e.printStackTrace();
         }

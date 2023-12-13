@@ -25,7 +25,8 @@ public class AddOrderBookServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
 
         String isbn = request.getParameter("isbn");
-        if (isbn == null){
+        String str_quantity = request.getParameter("quantity");
+        if (isbn == null || str_quantity == null || isbn.isEmpty() || str_quantity.isEmpty()){
             request.setAttribute("errorMessage","信息有误!");
             request.getRequestDispatcher("book_detail.jsp").forward(request,response);
         } else {
@@ -36,8 +37,15 @@ public class AddOrderBookServlet extends HttpServlet {
             } else {
 
                 String account = session.getAttribute("session_account").toString();
-                new OrderControl().addOrderBook(account, isbn);
-                request.getRequestDispatcher("CurrentOrderServlet").forward(request,response);
+                int quantity = Integer.parseInt(str_quantity);
+                if (quantity<=0){
+                    request.setAttribute("errorMessage", "购买数量有误！");
+                    request.getRequestDispatcher("book_detail.jsp").forward(request, response);
+                } else {
+                    new OrderControl().addOrderBook(account, isbn, quantity);
+                    request.getRequestDispatcher("CurrentOrderServlet").forward(request,response);
+                }
+
             }
         }
     }

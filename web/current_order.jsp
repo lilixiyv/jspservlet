@@ -1,3 +1,5 @@
+<%--@elvariable id="vip_level" type="com.jspservlet.servlet.CurrentOrderServlet"--%>
+<%--@elvariable id="current_order" type="com.jspservlet.entity.Order"--%>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -33,7 +35,46 @@
         <!-- 主要内容区域 -->
         <div id="content">
             <h1>当前订单</h1>
+            <div class="container mt-4">
+                <%--                将标签和输入分为两行来解决对齐问题，但当页面过窄时依然会效果不佳--%>
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-2">
+                        <label for="order_id" class="form-label">订单号</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="update_time" class="form-label">更新时间</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="receipt_place" class="form-label">收获地址</label>
+                    </div>
+                    <div class="col-md-2">
+                        <%
+                            int vip_level = Integer.parseInt(request.getAttribute("vip_level").toString());
+                        %>
+                        <label for="price_sum" class="form-label">总金额<%=vip_level==0?"":"（已打"+(10-vip_level)+"折）"%>></label>
+                    </div>
+                </div>
+                <form class="row g-3 align-items-center" method="post" action="HomeServlet">
 
+
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="order_id" value="${current_order.orderNumber}" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="update_time" name="author" value="${current_order.updateTime}" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="receipt_place" name="press_name" value="${current_order.address}">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="price_sum" name="press_name" value="${current_order.address}" disabled>
+                    </div>
+                    <div class="col-md-1">
+<%--                        TODO--%>
+                        <button type="submit" class="btn btn-outline-warning w-100">提交订单</button>
+                    </div>
+                </form>
+            </div>
             <div style="height: 80vh; overflow: auto;">
                 <table class="table table-light table-striped table-hover">
                     <thead>
@@ -51,36 +92,40 @@
                     </thead>
                     <tbody>
                     <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
-                    <%--                    <c:forEach var="book" items="${bookList}">--%>
-                    <%--                        <tr>--%>
-                    <%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
-                    <%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
-                    <%--                            <td>${book.authorName}</td>--%>
-                    <%--                            <td>${book.pressName}</td>--%>
-                    <%--                            <td>${book.categoryName}</td>--%>
-                    <%--                            <td>${book.price}</td>--%>
-                    <%--                        </tr>--%>
-                    <%--                    </c:forEach>--%>
-                    <%for (int i = 1; i <=5; i++) {%>
-                    <tr>
-                        <%--跳转页面待改变--%>
-                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
-                        <td> test </td>
-                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a> </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>
-                    </tr>
-                    <%}%>
+                        <%--@elvariable id="current_order_books" type="java.util.List"--%>
+                        <c:forEach var="book" items="${current_order_books}">
+                            <tr>
+
+                                <td><a class="custom-link" href="BookDetailServlet?isbn=${book.isbn}&in=1">${book.title}</a></td>
+                                <td>${book.publishDate}</td>
+                                <td><a class="custom-link" href="AuthorDetailServlet?author_name=${book.author.name}"> ${book.author.name}</a></td>
+                                <td><a class="custom-link" href="PressDetailServlet?press_name=${book.publishHouse.name}">${book.publishHouse.name}</a></td>
+                                <td>${book.category.categoryName}</td>
+                                <td>${book.goodRate}</td>
+                                <td>${book.reviewAmount}</td>
+                                <td>${book.price}</td>
+                            </tr>
+                        </c:forEach>
+<%--                    <%for (int i = 1; i <=5; i++) {%>--%>
+<%--                    <tr>--%>
+<%--                        &lt;%&ndash;跳转页面待改变&ndash;%&gt;--%>
+<%--                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>--%>
+<%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a> </td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> test </td>--%>
+<%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>--%>
+<%--                    </tr>--%>
+<%--                    <%}%>--%>
                     </tbody>
                 </table>
             </div>
             <div class="row mt-3 justify-content-end">
                 <div class="row col-2">
-                    总金额：
+                    总金额：${current_order.price}
                 </div>
                 <div class="row col-2 justify-content-end">
                     <button class="btn btn-warning">

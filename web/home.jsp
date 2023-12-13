@@ -132,11 +132,11 @@
                     <div class="col-md-1">
                         <select class="form-select" id="commentCount" name="comment_num">
                             <option value="-1 1000000" <%=comment_num == null || comment_num.isEmpty() || comment_num.equals("-1 1000000") ? "selected" : ""%>>任意</option>
-                            <option value="0 1" <%=comment_num != null && comment_num.equals("0 1") ? "selected" : ""%>>&lt;5</option>
-                            <option value="1 1500" <%=comment_num != null && comment_num.equals("1 1500") ? "selected" : ""%>>5-10</option>
-                            <option value="1500 15000" <%=comment_num != null && comment_num.equals("1500 15000") ? "selected" : ""%>>10-15</option>
-                            <option value="15000 100000" <%=comment_num != null && comment_num.equals("15000 100000") ? "selected" : ""%>>15-20</option>
-                            <option value="100000 1000000" <%=comment_num != null && comment_num.equals("100000 1000000") ? "selected" : ""%>>&ge;20</option>
+                            <option value="0 1" <%=comment_num != null && comment_num.equals("0 1") ? "selected" : ""%>>&lt;1</option>
+                            <option value="1 1500" <%=comment_num != null && comment_num.equals("1 1500") ? "selected" : ""%>>1-1500</option>
+                            <option value="1500 15000" <%=comment_num != null && comment_num.equals("1500 15000") ? "selected" : ""%>>1500-15000</option>
+                            <option value="15000 100000" <%=comment_num != null && comment_num.equals("15000 100000") ? "selected" : ""%>>15000-100000</option>
+                            <option value="100000 1000000" <%=comment_num != null && comment_num.equals("100000 1000000") ? "selected" : ""%>>&ge;100000</option>
 
                         </select>
                     </div>
@@ -185,7 +185,6 @@
                     <%--@elvariable id="bookList" type="com.jspservlet.entity.Book"--%>
                     <c:forEach var="book" items="${bookList}">
                         <tr>
-                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->
                             <td><a class="custom-link" href="BookDetailServlet?isbn=${book.isbn}">${book.title}</a></td>
                             <td>${book.publishDate}</td>
                             <td><a class="custom-link" href="AuthorDetailServlet?author_name=${book.author.name}"> ${book.author.name}</a></td>

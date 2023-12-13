@@ -86,7 +86,7 @@ public class CustomerDao extends UserDao {
         return (new BookControl()).selectAll();
     }
 
-    public Integer getVipLevel(String customerId) {
+    public int getVipLevel(String customerId) {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps;
         ResultSet rs;
@@ -94,7 +94,9 @@ public class CustomerDao extends UserDao {
             ps = conn.prepareStatement("select level from customer where customer_id= ? ");
             ps.setString(1, customerId);
             rs = ps.executeQuery();
-            return (int) (rs.getDouble(1));
+            if(rs.next()){
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -125,9 +127,9 @@ public class CustomerDao extends UserDao {
         return new OrderControl().checkOrder(customerId);
     }
 
-    public void addAndDelete(String type, String customerId, String isbn) {
+    public void addAndDelete(String type, String customerId, String isbn, int quantity) {
         if (type.equals("add")) {
-            new OrderControl().addOrderBook(customerId, isbn);
+            new OrderControl().addOrderBook(customerId, isbn, quantity);
         } else {
             new OrderControl().deleteOrderBook(customerId, isbn);
         }

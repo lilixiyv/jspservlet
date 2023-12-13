@@ -17,7 +17,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("current_order.jsp")) ? " active" : "" %>" href="current_order.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("CurrentOrderServlet")) ? " active" : "" %>" href="CurrentOrderServlet">
                 当前订单
             </a>
         </li>

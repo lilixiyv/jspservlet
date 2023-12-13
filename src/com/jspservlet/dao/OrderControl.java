@@ -71,8 +71,8 @@ public class OrderControl {
 //            ps = conn.prepareStatement("select book_name, price " +
 //                    "from orders natural join order_book natural join" +
 //                    "book where customer_id = ?;");
-            ps = conn.prepareStatement("select book.* " +
-                    "from book natural join order_book natural join orders" +
+            ps = conn.prepareStatement("select book.*,orders.* " +
+                    "from book natural join order_book natural join orders " +
                     "natural join customer where customer.current_order_id = order_id and customer.customer_id = ?;");
             ps.setString(1, customerId);
             rs = ps.executeQuery();
@@ -88,51 +88,60 @@ public class OrderControl {
         return bookList;
     }
 
-    public void addOrderBook(String customerId, String isbn) {
+    public void addOrderBook(String customerId, String isbn, int quantity) {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps;
         ResultSet rs;
         try {
-            ps = conn.prepareStatement("select order_book.* " +
-                    "from order_book,customer " +
-                    "where customer.customer_id=? and " +
-                    "customer.current_order_id = order_book.order_id;");
+            ps = conn.prepareStatement("select orders.* " +
+                    "from orders natural join customer " +
+                    "where customer.current_order_id = orders.order_id and customer_id = ?");// 查询当前订单
             ps.setString(1, customerId);
             rs = ps.executeQuery();
 
-            String orderId = rs.getString(2);
+            if (rs.next()){
+                int orderId = rs.getInt(1);
 
-            ps = conn.prepareStatement("select price from book where ISBN=?;");
-            ps.setString(1, isbn);
-            rs = ps.executeQuery();
-            double price = rs.getDouble(1);
-
-            if (rs.next()) {
-                int orderSum = rs.getInt(1);
-                orderSum += 1;
-                ps = conn.prepareStatement("UPDATE order_book SET order_sum=? where order_id=?");
-                ps.setInt(1, orderSum);
-                ps.setString(2, orderId);
-                ps.executeQuery();
-            } else {
-                ps = conn.prepareStatement("INSERT INTO order_book values(?,?,?);");
+                ps = conn.prepareStatement("select price from book where ISBN=?;");
                 ps.setString(1, isbn);
-                ps.setString(2, orderId);
-                ps.setInt(3, 1);
-                ps.executeQuery();
-            }
+                rs = ps.executeQuery();
 
-            ps = conn.prepareStatement("select orders.price_sum,customer.level from " +
-                    "orders,customer where orders.order_id = customer.current_order_id and " +
-                    "customer.customer_id=?;");
-            ps.setString(1, customerId);
-            rs = ps.executeQuery();
-            double finalMoney = price * rs.getDouble(2)
-                    + rs.getDouble(1);
-            ps = conn.prepareStatement("UPDATE orders SET update_time=CURRENT_TIME(),price_sum=? " +
-                    "where order_id=?");
-            ps.setDouble(1, finalMoney);
-            ps.setString(2, orderId);
+                // TODO orderSum，此处代码逻辑为一次只能买一本
+                if (rs.next()) {
+                    int price = rs.getInt(1);
+                    ps = conn.prepareStatement("select * from order_book where ISBN = ? and order_id = ?");//查询order_book
+                    ps.setString(1, isbn);
+                    ps.setInt(2, orderId);
+                    rs = ps.executeQuery();
+                    if (rs.next()) {// 若已存在，则更新
+                        int orderSum = rs.getInt(3);
+                        orderSum += quantity;
+                        ps = conn.prepareStatement("UPDATE order_book SET order_sum=? where ISBN = ? and order_id=?");
+                        ps.setInt(1, orderSum);
+                        ps.setString(2, isbn);
+                        ps.setInt(3, orderId);
+                        ps.executeUpdate();
+                    } else {// 若不存在，则插入
+                        ps = conn.prepareStatement("INSERT INTO order_book values(?,?,?);");
+                        ps.setString(1, isbn);
+                        ps.setInt(2, orderId);
+                        ps.setInt(3, quantity);
+                        ps.executeUpdate();
+                    }
+                    ps = conn.prepareStatement("select orders.price_sum,customer.level from " +
+                            "orders natural join customer where order_id = ?");
+                    ps.setInt(1, orderId);
+                    rs = ps.executeQuery();
+                    if (rs.next()){
+                        double finalMoney = price * quantity * (1-0.1* (double) rs.getInt(2))
+                                + rs.getDouble(1);
+                        ps = conn.prepareStatement("UPDATE orders SET update_time=CURRENT_TIME(),price_sum=? " +
+                                "where order_id=?");
+                        ps.setDouble(1, finalMoney);
+                        ps.setInt(2, orderId);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,3 +1,4 @@
+<%--@elvariable id="press" type="com.jspservlet.entity.PublishHouse"--%>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -27,30 +28,19 @@
             <%--书名--%>
             <%--            <div class="card-header">  </div>--%>
             <div class="card-body">
-                <h3 class="card-title text-center">出版社</h3>
+                <h3 class="card-title text-center">${press.name}</h3>
                 <form>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info text-white col-2">地址</span>
-                        <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value="地址" disabled>
+                        <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value="${press.location}" disabled>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info text-white col-2">出版书目数</span>
-                        <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value="出版数" disabled>
+                        <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value="${press.totalPublish}" disabled>
                     </div>
 
                 </form>
-                <div class="card">
-                    <h5 class="card-title text-center text-success">简介</h5>
-                    <div class="card-body">
-                        aosidhgpoighpwei
-                        asdopghapoiewg
-                        asdl;ghpweihg[
-                        ';asdgpohawegihap
-                        adsguoeuhiuh
-                    </div>
-                </div>
-
 
                 <div class="row mt-2 justify-content-center">
 
