@@ -130,8 +130,6 @@ public class CustomerDao extends UserDao {
     public void addAndDelete(String type, String customerId, String isbn, int quantity) {
         if (type.equals("add")) {
             new OrderControl().addOrderBook(customerId, isbn, quantity);
-        } else {
-            new OrderControl().deleteOrderBook(customerId, isbn);
         }
     }
 

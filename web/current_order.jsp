@@ -25,6 +25,16 @@
     <%-- 导入自定义的表格样式 --%>
     <link rel="stylesheet" href="assets/self_css/self_table.css">
 
+    <script>
+        // TODO
+
+        function changeOrderSum(isbn){
+            let order_sum = document.getElementById(isbn).value;
+            window.location.href = "ChangeOrderBookServlet?isbn="+isbn+"&order_sum="+order_sum;
+        }
+
+    </script>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -72,22 +82,24 @@
 
                     <div class="col-md-1 ms-auto">
 <%--                        TODO--%>
-                        <button type="submit" class="btn btn-outline-warning w-100">提交订单</button>
+                        <button type="button" class="btn btn-outline-warning w-100 text-black" onclick="window.location.href='PayOrderServlet?pay=1'">提交订单</button>
                     </div>
                 </form>
             </div>
             <div style="height: 80vh; overflow: auto;">
-                <table class="table table-light table-striped table-hover">
-                    <thead>
-                    <tr class="table-dark">
-                        <th>书名</th>
-                        <th>价格</th>
-                        <th>购买数量</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
+
+                    <table class="table table-light table-striped table-hover">
+                        <thead>
+                        <tr class="table-dark">
+                            <th>书名</th>
+                            <th>价格</th>
+                            <th>购买数量</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
                         <%--@elvariable id="current_order_books" type="java.util.List"--%>
                         <c:forEach var="order_book" items="${current_order_books}">
                             <tr>
@@ -96,37 +108,23 @@
                                 <td>${order_book.price}</td>
                                 <td>
                                     <label>
-                                        <input type="number" name="quantity" min="1" value="${order_book.order_sum}">
+                                        <input type="number" name="quantity_${order_book.ISBN}" min="1" value="${order_book.order_sum}" id="${order_book.ISBN}">
                                     </label>
                                 </td>
-
+                                <td>
+                                    <button onclick="changeOrderSum('${order_book.ISBN}')">
+                                        修改
+                                    </button>
+                                </td>
                                 <td> <a class="custom-link" href="MoveCurrentOrderBookServlet?isbn=${order_book.ISBN}&order_id=${current_order.orderNumber}">移除</a></td>
                             </tr>
                         </c:forEach>
-<%--                    <tr>--%>
+                        </tbody>
+                    </table>
 
-<%--                        <td>test</td>--%>
-<%--                        <td>test</td>--%>
-<%--                        <td>--%>
-<%--                            <label>--%>
-<%--                                <input type="number" name="quantity" min="1" value="test">--%>
-<%--                            </label>--%>
-<%--                        </td>--%>
-<%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>--%>
-<%--                    </tr>--%>
-                    </tbody>
-                </table>
+
             </div>
-            <div class="row mt-3 justify-content-end">
-                <div class="row col-2">
-                    总金额：${current_order.price}
-                </div>
-                <div class="row col-2 justify-content-end">
-                    <button class="btn btn-warning">
-                        购买
-                    </button>
-                </div>
-            </div>
+
 
 
 
@@ -134,10 +132,10 @@
     </div>
 </div>
 
-<%--@elvariable id="successMessage" type="com.jspservlet.servlet.RegisterServlet"--%>
-<c:if test = "${not empty successMessage}">
+<%--@elvariable id="errorMessage" type="com.jspservlet.servlet.PayOrderServlet"--%>
+<c:if test = "${not empty errorMessage}">
     <script>
-        alert("${successMessage}");
+        alert("${errorMessage}");
     </script>
 </c:if>
 </body>

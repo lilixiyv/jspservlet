@@ -2,7 +2,6 @@ package com.jspservlet.servlet;
 
 import com.jspservlet.dao.OrderControl;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/MoveCurrentOrderBookServlet")
-public class MoveCurrentOrderBookServlet extends HttpServlet {
+@WebServlet("/PayOrderServlet")
+public class PayOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -25,10 +24,9 @@ public class MoveCurrentOrderBookServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
-        String isbn = request.getParameter("isbn");
-        String str_order_id = request.getParameter("order_id");
-        if (isbn == null || str_order_id == null || isbn.isEmpty() || str_order_id.isEmpty()){
-            request.setAttribute("errorMessage","信息有误!");
+        String pay = request.getParameter("pay");
+        if(!"1".equals(pay)){
+            request.setAttribute("errorMessage","出现异常!");
             request.getRequestDispatcher("book_detail.jsp").forward(request,response);
         } else {
             HttpSession session = request.getSession();
@@ -37,12 +35,13 @@ public class MoveCurrentOrderBookServlet extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 String account = session.getAttribute("session_account").toString();
-                int order_id = Integer.parseInt(str_order_id);
-                new OrderControl().deleteOrderBook(order_id, isbn);
+                new OrderControl().payOrder(account);
                 request.getRequestDispatcher("CurrentOrderServlet").forward(request,response);
 
 
             }
         }
+
+
     }
 }
