@@ -17,8 +17,8 @@ public class HistoricalControl {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps;
         ResultSet rs;
-        ps = conn.prepareStatement("select orders.* from orders,customer where customer.customer_id=? " +
-                "and customer.customer_id = orders.customer_id and orders.order_id != customer.current_order_id;");
+        ps = conn.prepareStatement("select orders.* from orders natural join customer where customer.customer_id=? " +
+                "and orders.order_id != customer.current_order_id;");
         ps.setString(1, customerId);
         rs = ps.executeQuery();
         while (rs.next()) {

@@ -1,9 +1,8 @@
 package com.jspservlet.servlet;
 
+import com.jspservlet.dao.AdminDao;
 import com.jspservlet.dao.CustomerDao;
-import com.jspservlet.dao.OrderControl;
-import com.jspservlet.entity.Order;
-import com.jspservlet.entity.OrderBook;
+import com.jspservlet.entity.Customer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +14,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/HistoryOrdersServlet")
-public class HistoryOrdersServlet extends HttpServlet {
+@WebServlet("/DeleteCustomerServlet")
+public class DeleteCustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        doPost(request, response);
+        doPost(request, response); // get请求的处理都跳到post请求
     }
 
     @Override
@@ -35,19 +33,22 @@ public class HistoryOrdersServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
-            if (identity == 1 ){
-                request.setAttribute("errorMessage", "身份异常！");
+            if (identity == 0){
+                request.setAttribute("errorMessage", "身份认证失败！");
                 response.sendRedirect("login.jsp");
             } else {
-                String account = session.getAttribute("session_account").toString();
-                try {
-                    List<Order> orderList = new CustomerDao().GetHistoryOrder(account);
-                    request.setAttribute("order_list", orderList);
-                    request.getRequestDispatcher("history_order.jsp").forward(request,response);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                String account = request.getParameter("account");
+                String confirm = request.getParameter("confirm");
+                if (!"1".equals(confirm)&&!"2".equals(confirm)){
+                    request.setAttribute("errorMessage", "参数异常！");
+                } else {
+                    new CustomerDao().deleteAccount(account);
+                    if ("1".equals(confirm)){
+                        response.sendRedirect("CustomersServlet");
+                    } else {
+                        response.sendRedirect("AdminsServlet");
+                    }
                 }
-
 
             }
         }

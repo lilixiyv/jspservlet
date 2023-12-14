@@ -32,14 +32,14 @@ public class CustomerDao extends UserDao {
         ResultSet rs;
         try {
             ps = conn.prepareStatement("select * from customer where customer_id = ?");
-            ps.setString(1, user.getID());
+            ps.setString(1, user.getId());
             rs = ps.executeQuery();
             if(rs.next()){
                 return true;
             } else {
                 ps = conn.prepareStatement("insert into customer values (?, ?, ?, ?, ?, 0, 0, 'normal', null, ?);");
                 ps.setString(1,customer_id);
-                ps.setString(2,user.getUsername());
+                ps.setString(2,user.getName());
                 ps.setString(3,user.getPassword());
                 ps.setString(4, mail_id);
                 ps.setString(5, telephone);
@@ -119,8 +119,8 @@ public class CustomerDao extends UserDao {
         return new BookControl().selectByCategory(categoryName);
     }
 
-    public void payOrder(String customerId) {
-        new OrderControl().payOrder(customerId);
+    public void payOrder(String customerId, String address) {
+        new OrderControl().payOrder(customerId, address);
     }
 
     public List<OrderBook> getCurrentOrder(String customerId) {
@@ -147,5 +147,111 @@ public class CustomerDao extends UserDao {
 
     public List<Order> GetHistoryOrder(String customerId) throws SQLException {
         return new HistoricalControl().getHistoryOrder(customerId);
+    }
+
+    public Customer GetAccountInfo (String cutomerId) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = dbConnectUtil.connect();
+
+            ps = conn.prepareStatement("select * from customer where customer_id = ?");
+            ps.setString(1, cutomerId);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                return new Customer(rs.getString(2), rs.getString(3), rs.getString(1), rs.getString(4), rs.getString(5), rs.getString(10), rs.getInt(6), null, rs.getDouble(7));
+            }
+
+        return null;
+    }
+
+    public boolean ChangeAccountInfo (String customer_id, String change_account, String username, String email, String phone_number, String address) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = dbConnectUtil.connect();
+
+        if(customer_id.equals(change_account)) {
+            ps = conn.prepareStatement("update customer set nickname=?, mail_id=?, telephone=?, def_location=? where customer_id = ?");
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, phone_number);
+            ps.setString(4, address);
+            ps.setString(5, customer_id);
+            ps.executeUpdate();
+            return false;
+        } else {
+            ps = conn.prepareStatement("select * from customer where customer_id = ?");
+            ps.setString(1, change_account);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            } else {
+                ps = conn.prepareStatement("update customer set nickname=?, mail_id=?, telephone=?, def_location=?, customer_id=? where customer_id=?");
+                ps.setString(1, username);
+                ps.setString(2, email);
+                ps.setString(3, phone_number);
+                ps.setString(4, address);
+                ps.setString(5, change_account);
+                ps.setString(6, customer_id);
+                ps.executeUpdate();
+                return false;
+            }
+        }
+
+    }
+    public boolean ChangeAccountInfo (String customer_id, String change_account, String username, String email, String phone_number) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = dbConnectUtil.connect();
+
+        if(customer_id.equals(change_account)) {
+            ps = conn.prepareStatement("update customer set nickname=?, mail_id=?, telephone=? where customer_id = ?");
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, phone_number);
+            ps.setString(4, customer_id);
+            ps.executeUpdate();
+            return false;
+        } else {
+            ps = conn.prepareStatement("select * from customer where customer_id = ?");
+            ps.setString(1, change_account);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            } else {
+                ps = conn.prepareStatement("update customer set nickname=?, mail_id=?, telephone=?, customer_id=? where customer_id=?");
+                ps.setString(1, username);
+                ps.setString(2, email);
+                ps.setString(3, phone_number);
+                ps.setString(4, change_account);
+                ps.setString(5, customer_id);
+                ps.executeUpdate();
+                return false;
+            }
+        }
+
+    }
+
+    public boolean ChangeAccountInfo(String customer_id, String password, String changed_password) throws NoSuchAlgorithmException, SQLException {
+        String sha256_password = new Sha256().sha256(password);
+        PreparedStatement ps;
+        ResultSet rs;
+        Connection conn = dbConnectUtil.connect();
+        ps = conn.prepareStatement("select pw from customer where customer_id = ?");
+        ps.setString(1, customer_id);
+        rs = ps.executeQuery();
+        if (rs.next()){
+            String correct_pw = rs.getString(1);
+            if (correct_pw.equals(sha256_password)){
+                String sha256_changed_pw = new Sha256().sha256(changed_password);
+                ps = conn.prepareStatement("update customer set pw = ? where customer_id = ?");
+                ps.setString(1, sha256_changed_pw);
+                ps.setString(2, customer_id);
+                ps.executeUpdate();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 }

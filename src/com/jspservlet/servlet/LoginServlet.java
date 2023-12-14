@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet{
         String account = request.getParameter("lg_account");
         String password = request.getParameter("lg_password");
         // 获取权限信息
-        int identity = 0;
+        int identity;
 
         if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
             request.setAttribute("errorMessage", "账号异常，请尝试重新登录！");
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet{
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
 
-                if (account == null || !account.matches("^[a-zA-Z0-9]{8,16}$")) {
+                if (!account.matches("^[a-zA-Z0-9]{8,16}$")) {
                     request.setAttribute("errorMessage", "登录异常！");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 } else {

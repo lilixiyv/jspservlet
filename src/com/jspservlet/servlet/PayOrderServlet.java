@@ -24,8 +24,8 @@ public class PayOrderServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
-        String pay = request.getParameter("pay");
-        if(!"1".equals(pay)){
+        String address = request.getParameter("address");
+        if("".equals(address)|| address == null){
             request.setAttribute("errorMessage","出现异常!");
             request.getRequestDispatcher("book_detail.jsp").forward(request,response);
         } else {
@@ -35,7 +35,7 @@ public class PayOrderServlet extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 String account = session.getAttribute("session_account").toString();
-                new OrderControl().payOrder(account);
+                new OrderControl().payOrder(account, address);
                 request.getRequestDispatcher("CurrentOrderServlet").forward(request,response);
 
 

@@ -12,12 +12,12 @@ import java.util.List;
 
 public class OrderControl {
 
-    public void payOrder(String customerId) {
+    public void payOrder(String customerId, String address) {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps;
         ResultSet rs;
         try {
-            ps = conn.prepareStatement("select orders.price_sum, def_location " +
+            ps = conn.prepareStatement("select orders.price_sum, def_location, orders.order_id " +
                     "from orders natural join customer " +
                     "where orders.order_id = current_order_id and customer.customer_id=?");// 获取当前订单总金额
             ps.setString(1, customerId);
@@ -25,6 +25,11 @@ public class OrderControl {
             if (rs.next()) {
                 double order_price_sum = rs.getDouble(1);
                 String def_location = rs.getString(2);
+                int paying_order_id = rs.getInt(3);
+                ps = conn.prepareStatement("update orders set receipt_place = ? where order_id = ?");
+                ps.setString(1, address);
+                ps.setInt(2, paying_order_id);
+                ps.executeUpdate();
                 ps = conn.prepareStatement("update customer set purchase_sum = purchase_sum + ? where customer_id = ?");// 更新总金额
                 ps.setDouble(1, order_price_sum);
                 ps.setString(2, customerId);

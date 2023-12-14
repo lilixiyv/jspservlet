@@ -32,7 +32,7 @@ public class HomeServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
-            if (identity == 0){
+
                 BookControl bookControl = new BookControl();
                 List<Book> bookList;
 
@@ -98,10 +98,10 @@ public class HomeServlet extends HttpServlet {
                     bookList = bookControl.inquire(book_name, publish_time, author, press_name, category, rate, integer_comment, double_price, type, rise);
                 }
                 request.setAttribute("bookList", bookList);
-                request.getRequestDispatcher("home.jsp").forward(request,response);
-            } else {
-                request.setAttribute("errorMessage", "登录异常！");
-                response.sendRedirect("login.jsp");
+                if (identity == 0) {
+                    request.getRequestDispatcher("home.jsp").forward(request,response);
+                } else {
+                    request.getRequestDispatcher("books.jsp").forward(request,response);
             }
 
         }

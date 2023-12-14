@@ -27,7 +27,10 @@
 
     <script>
         // TODO
-
+        function submitOrder(){
+            let address = document.getElementById("receipt_place").value;
+            window.location.href='PayOrderServlet?address=' + address;
+        }
         function changeOrderSum(isbn){
             let order_sum = document.getElementById(isbn).value;
             window.location.href = "ChangeOrderBookServlet?isbn="+isbn+"&order_sum="+order_sum;
@@ -82,7 +85,7 @@
 
                     <div class="col-md-1 ms-auto">
 <%--                        TODO--%>
-                        <button type="button" class="btn btn-outline-warning w-100 text-black" onclick="window.location.href='PayOrderServlet?pay=1'">提交订单</button>
+                        <button type="button" class="btn btn-outline-warning w-100 text-black" onclick="submitOrder()">提交订单</button>
                     </div>
                 </form>
             </div>

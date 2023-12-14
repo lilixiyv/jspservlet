@@ -22,12 +22,12 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("history_order.jsp")) ? " active" : "" %>" href="history_order.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("HistoryOrdersServlet")) ? " active" : "" %>" href="HistoryOrdersServlet">
                 历史订单
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("account.jsp")) ? " active" : "" %>" href="account.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("AccountServlet")) ? " active" : "" %>" href="AccountServlet">
                 账号管理
             </a>
         </li>

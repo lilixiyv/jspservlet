@@ -71,7 +71,7 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">修改个人信息</h3>
-                <form action="RegisterServlet" method="post" id="rg_form">
+                <form action="ChangeAccountInfoServlet" method="post" id="rg_form">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
@@ -128,7 +128,14 @@
         alert("${errorMessage}");
     </script>
 </c:if>
+<%--@elvariable id="successMessage" type="com.jspservlet.servlet.ChangeAccountInfoServlet"--%>
+<c:if test = "${not empty successMessage}">
 
+
+    <script>
+        alert("${successMessage}");
+    </script>
+</c:if>
 
 </body>
 

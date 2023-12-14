@@ -195,19 +195,6 @@
                             <td>${book.price}</td>
                         </tr>
                     </c:forEach>
-<%--                    <%for (int i = 1; i <=50; i++) {%>--%>
-<%--                    <tr>--%>
-<%--                        &lt;%&ndash;跳转页面待改变&ndash;%&gt;--%>
-<%--                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>--%>
-<%--                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a></td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> test </td>--%>
-<%--                        <td> test </td>--%>
-<%--                    </tr>--%>
-<%--                    <%}%>--%>
                     </tbody>
                 </table>
             </div>

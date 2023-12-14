@@ -1,9 +1,8 @@
 package com.jspservlet.servlet;
 
 import com.jspservlet.dao.CustomerDao;
-import com.jspservlet.dao.OrderControl;
+import com.jspservlet.entity.Customer;
 import com.jspservlet.entity.Order;
-import com.jspservlet.entity.OrderBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +14,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/HistoryOrdersServlet")
-public class HistoryOrdersServlet extends HttpServlet {
+@WebServlet("/AccountServlet")
+public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,28 +27,29 @@ public class HistoryOrdersServlet extends HttpServlet {
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
-
         HttpSession session = request.getSession();
         if( session == null || session.getAttribute("session_identity") == null){
             request.setAttribute("errorMessage", "请登录！");
             response.sendRedirect("login.jsp");
         } else {
             int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
-            if (identity == 1 ){
-                request.setAttribute("errorMessage", "身份异常！");
-                response.sendRedirect("login.jsp");
-            } else {
+
                 String account = session.getAttribute("session_account").toString();
                 try {
-                    List<Order> orderList = new CustomerDao().GetHistoryOrder(account);
-                    request.setAttribute("order_list", orderList);
-                    request.getRequestDispatcher("history_order.jsp").forward(request,response);
+                    Customer customer = new CustomerDao().GetAccountInfo(account);
+                    request.setAttribute("account", customer);
+                    if (identity == 0){
+                        request.getRequestDispatcher("account.jsp").forward(request,response);
+                    } else {
+                        request.getRequestDispatcher("admin_account.jsp").forward(request,response);
+                    }
+
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
 
 
-            }
+
         }
     }
 }

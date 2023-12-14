@@ -1,3 +1,4 @@
+<%--@elvariable id="account" type="com.jspservlet.entity.Customer"--%>
 <%--@elvariable id="identity" type="com.jspservlet.servlet.HomeServlet"--%>
 <%--
   Created by IntelliJ IDEA.
@@ -37,6 +38,18 @@
             // 刷新页面或执行其他操作
             location.href="login.jsp"; // 刷新页面
         }
+        function confirmAndRedirect() {
+            // 使用 confirm() 函数显示确认对话框
+            let confirmed = confirm("确定要销号吗？");
+
+            // 如果用户点击了确定按钮
+            if (confirmed) {
+                // 执行跳转逻辑，可以使用 window.location.href 跳转到指定页面
+                window.location.href = "DeleteSelfServlet?confirm=1";
+            } else {
+                // 用户点击了取消按钮，可以不执行任何跳转逻辑
+            }
+        }
     </script>
 
 </head>
@@ -57,38 +70,38 @@
                             <div class="input-group mb-3">
 <%--                                <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>--%>
                                 <span class="input-group-text bg-info text-white col-2">账号</span>
-                                <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" name="rg_account" placeholder="账号" disabled>
+                                <label for="rg_account"></label><input type="text" class="form-control" id="rg_account" name="rg_account" value="${account.id}" disabled>
                                 <div id="rg_account_feedback" class="invalid-feedback"></div>
                             </div>
                             <div class="input-group mb-3">
 <%--                                <span class="input-group-text bg-info"><i class="bi bi-emoji-sunglasses-fill text-white"></i></span>--%>
                                 <span class="input-group-text bg-info text-white col-2">昵称</span>
-                                <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" name="rg_username" placeholder="昵称" disabled>
+                                <label for="rg_username"></label><input type="text" class="form-control" id="rg_username" name="rg_username" value="${account.name}" disabled>
                             </div>
                             <div class="input-group mb-3">
 <%--                                <span class="input-group-text bg-info"><i class="bi bi-envelope-fill text-white"></i></span>--%>
                                 <span class="input-group-text bg-info text-white col-2">邮箱</span>
-                                <label for="rg_email"></label><input type="text" class="form-control" id="rg_email" name="rg_email" placeholder="邮箱" disabled>
+                                <label for="rg_email"></label><input type="text" class="form-control" id="rg_email" name="rg_email" value="${account.email}" disabled>
                             </div>
                             <div class="input-group mb-3">
 <%--                                <span class="input-group-text bg-info"><i class="bi bi-phone-fill text-white"></i></span>--%>
                                 <span class="input-group-text bg-info text-white col-2">手机</span>
-                                <label for="rg_phone_number"></label><input type="text" class="form-control" id="rg_phone_number" name="rg_phone_number" placeholder="手机号" disabled>
+                                <label for="rg_phone_number"></label><input type="text" class="form-control" id="rg_phone_number" name="rg_phone_number" value="${account.telephone}" disabled>
                             </div>
 
                             <div class="input-group mb-3">
 
                                 <span class="input-group-text bg-info text-white col-2">等级</span>
-                                <label for="level"></label><input type="text" class="form-control" id="level" placeholder="等级" disabled>
+                                <label for="level"></label><input type="text" class="form-control" id="level" value="${account.vipLevel}" disabled>
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-info text-white col-2">已花费</span>
-                                <label for="purchase_sum"></label><input type="text" class="form-control" id="purchase_sum" placeholder="等级" disabled>
+                                <label for="purchase_sum"></label><input type="text" class="form-control" id="purchase_sum" value="${account.totalCost}" disabled>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-info text-white col-2">默认收货地</span>
-                                <label for="def_location"></label><input type="text" class="form-control" id="def_location" placeholder="等级" disabled>
+                                <label for="def_location"></label><input type="text" class="form-control" id="def_location" value="${account.location}" disabled>
                             </div>
 
 
@@ -109,7 +122,7 @@
                                 </div>
                                 <div class="col-md-6">
 <%--                                    待写--%>
-                                    <button type="button" class="btn btn-danger w-100 bg-danger" >销号</button>
+                                    <button type="button" class="btn btn-danger w-100 bg-danger" onclick="confirmAndRedirect()">销号</button>
                                 </div>
                             </div>
 

@@ -40,5 +40,18 @@ public class UserDao {
         return -3;
     }
 
+    public void deleteAccount(String account){
+        Connection conn = dbConnectUtil.connect();
+        PreparedStatement ps;
+        try {
+            ps = conn.prepareStatement("delete from customer where customer_id = ?");
+            ps.setString(1, account);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
 }

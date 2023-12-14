@@ -26,7 +26,7 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">修改密码</h3>
-                <form action="RegisterServlet" method="post" id="rg_form">
+                <form action="ChangeAccountInfoServlet" method="post">
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
                         <label for="old_password"></label><input type="password" class="form-control" id="old_password" name="rg_password" placeholder="旧密码">
@@ -34,7 +34,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-key-fill text-white"></i></span>
-                        <label for="rg_password"></label><input type="password" class="form-control" id="rg_password" name="rg_password" placeholder="新密码">
+                        <label for="rg_password"></label><input type="password" class="form-control" id="rg_password" name="rg_new_password" placeholder="新密码">
                     </div>
 
                     <div class="input-group mb-3">
@@ -44,7 +44,7 @@
 
                     <div class="row mt-2">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark w-100" onclick="validateForm()">修改</button>
+                            <button type="submit" class="btn btn-outline-dark w-100">修改</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()">返回</button>
