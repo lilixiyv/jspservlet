@@ -198,6 +198,11 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row mt-2 justify-content-center">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-outline-secondary w-100" onclick="window.location.href='CountServlet'">统计并导出</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

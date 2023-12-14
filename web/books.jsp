@@ -200,7 +200,6 @@
 
             </div>
             <div class="row mt-2 justify-content-center">
-                <%--TODO 按钮方法待改变--%>
                 <div class="col-md-6">
                     <button type="button" class="btn btn-outline-secondary w-100" onclick="window.location.href='add_book.jsp'">添加书籍</button>
                 </div>
