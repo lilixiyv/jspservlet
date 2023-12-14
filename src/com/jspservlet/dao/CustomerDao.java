@@ -28,8 +28,8 @@ public class CustomerDao extends UserDao {
                 telephone, def_location, password);
 
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select * from customer where customer_id = ?");
             ps.setString(1, user.getId());
@@ -66,6 +66,8 @@ public class CustomerDao extends UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return false;
     }
@@ -82,14 +84,14 @@ public class CustomerDao extends UserDao {
                 rate, commentNumber, price, type, rise);
     }
 
-    public List<Book> allBook() {
+    public List<Book> allBook() throws SQLException {
         return (new BookControl()).selectAll();
     }
 
     public int getVipLevel(String customerId) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select level from customer where customer_id= ? ");
             ps.setString(1, customerId);
@@ -99,6 +101,8 @@ public class CustomerDao extends UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return 0;
     }
@@ -150,8 +154,8 @@ public class CustomerDao extends UserDao {
     }
 
     public Customer GetAccountInfo (String cutomerId) throws SQLException {
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         Connection conn = dbConnectUtil.connect();
 
             ps = conn.prepareStatement("select * from customer where customer_id = ?");
@@ -160,7 +164,7 @@ public class CustomerDao extends UserDao {
             if (rs.next()){
                 return new Customer(rs.getString(2), rs.getString(3), rs.getString(1), rs.getString(4), rs.getString(5), rs.getString(10), rs.getInt(6), null, rs.getDouble(7));
             }
-
+        dbConnectUtil.disconnect(conn, ps, rs);
         return null;
     }
 
@@ -199,8 +203,8 @@ public class CustomerDao extends UserDao {
 
     }
     public boolean ChangeAccountInfo (String customer_id, String change_account, String username, String email, String phone_number) throws SQLException {
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         Connection conn = dbConnectUtil.connect();
 
         if(customer_id.equals(change_account)) {
@@ -210,12 +214,14 @@ public class CustomerDao extends UserDao {
             ps.setString(3, phone_number);
             ps.setString(4, customer_id);
             ps.executeUpdate();
+            dbConnectUtil.disconnect(conn, ps, rs);
             return false;
         } else {
             ps = conn.prepareStatement("select * from customer where customer_id = ?");
             ps.setString(1, change_account);
             rs = ps.executeQuery();
             if(rs.next()){
+                dbConnectUtil.disconnect(conn, ps, rs);
                 return true;
             } else {
                 ps = conn.prepareStatement("update customer set nickname=?, mail_id=?, telephone=?, customer_id=? where customer_id=?");
@@ -225,16 +231,16 @@ public class CustomerDao extends UserDao {
                 ps.setString(4, change_account);
                 ps.setString(5, customer_id);
                 ps.executeUpdate();
+                dbConnectUtil.disconnect(conn, ps, rs);
                 return false;
             }
         }
-
     }
 
     public boolean ChangeAccountInfo(String customer_id, String password, String changed_password) throws NoSuchAlgorithmException, SQLException {
         String sha256_password = new Sha256().sha256(password);
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
         Connection conn = dbConnectUtil.connect();
         ps = conn.prepareStatement("select pw from customer where customer_id = ?");
         ps.setString(1, customer_id);
@@ -247,11 +253,14 @@ public class CustomerDao extends UserDao {
                 ps.setString(1, sha256_changed_pw);
                 ps.setString(2, customer_id);
                 ps.executeUpdate();
+                dbConnectUtil.disconnect(conn, ps, rs);
                 return true;
             } else {
+                dbConnectUtil.disconnect(conn, ps, rs);
                 return false;
             }
         }
+        dbConnectUtil.disconnect(conn, ps, rs);
         return false;
     }
 }

@@ -15,8 +15,8 @@ public class BoughtBookControl {
     public Book notBuyBook(String customerId) {
         Book book = new Book();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select book.ISBN,book.price from book,order_book,orders,customer " +
                     "where customer.customer_id=? and customer.customer_id = orders.customer_id and orders.order_id " +
@@ -27,6 +27,8 @@ public class BoughtBookControl {
             book.setIsbn(rs.getString(1));
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return book;
     }
@@ -34,8 +36,8 @@ public class BoughtBookControl {
     public Order getOrderBook(String customerId) {
         Order order = new Order();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select order_book.* from order_book,customer where" +
                     "customer.customer_id=? and customer.customer_id = orders.customer_id and " +
@@ -51,6 +53,8 @@ public class BoughtBookControl {
             order.setBookList(bookList);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return order;
     }

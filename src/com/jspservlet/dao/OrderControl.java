@@ -14,8 +14,8 @@ public class OrderControl {
 
     public void payOrder(String customerId, String address) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select orders.price_sum, def_location, orders.order_id " +
                     "from orders natural join customer " +
@@ -63,6 +63,8 @@ public class OrderControl {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
     }
 
@@ -120,8 +122,8 @@ public class OrderControl {
     public List<OrderBook> checkOrder(String customerId) {
         List<OrderBook> orderBookList = new ArrayList<>();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
 //            ps = conn.prepareStatement("select book_name, price " +
 //                    "from orders natural join order_book natural join" +
@@ -137,14 +139,16 @@ public class OrderControl {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return orderBookList;
     }
 
     public void addOrderBook(String customerId, String isbn, int quantity) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select orders.* " +
                     "from orders natural join customer " +
@@ -198,13 +202,16 @@ public class OrderControl {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
+
         }
     }
 
     public void changeOrderBook(String customerId, String isbn, int quantity) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
         try {
             ps = conn.prepareStatement("select orders.* " +
                     "from orders natural join customer " +
@@ -252,13 +259,16 @@ public class OrderControl {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
+
         }
     }
 
     public void deleteOrderBook(int order_id, String isbn) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
         try {
             ps = conn.prepareStatement("select book.price, order_sum from book natural join order_book where isbn = ? and order_id = ?");
             ps.setString(1, isbn);
@@ -278,6 +288,8 @@ public class OrderControl {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
     }
 
@@ -326,8 +338,8 @@ public class OrderControl {
     public Order getOrderByCustomer(String customerId) {
         Order order = new Order();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select orders.* from orders,customer " +
                     "where customer.customer_id = ? and " +
@@ -347,6 +359,9 @@ public class OrderControl {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
+
         }
         return order;
     }

@@ -31,7 +31,7 @@ public class AdminDao extends UserDao {
         return new ManageAccount().addAdministrator(administrator);
     }
 
-    public List<Book> getAllBook() {
+    public List<Book> getAllBook() throws SQLException {
         return new BookControl().selectAll();
     }
 
@@ -62,6 +62,7 @@ public class AdminDao extends UserDao {
         ps = conn.prepareStatement("update press set all_sum = all_sum + 1 where press_name = ?");
         ps.setString(1, press_name);
         ps.executeUpdate();
+        conn.close();
     }
 
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/HomeServlet")
@@ -38,7 +39,11 @@ public class HomeServlet extends HttpServlet {
 
                 if (request.getParameter("book_name") == null){
                     //查询所有结果
-                    bookList = bookControl.selectAll();
+                    try {
+                        bookList = bookControl.selectAll();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
 
 
                 } else {

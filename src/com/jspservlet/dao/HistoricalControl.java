@@ -32,6 +32,7 @@ public class HistoricalControl {
             order.setPrice(rs.getDouble(5));
             orderList.add(order);
         }
+        dbConnectUtil.disconnect(conn, ps, rs);
         return orderList;
     }
 }

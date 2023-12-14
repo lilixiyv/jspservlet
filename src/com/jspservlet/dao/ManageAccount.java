@@ -40,6 +40,7 @@ public class ManageAccount {
             customer.setLocation(rs.getString(10));
             customerList.add(customer);
         }
+        dbConnectUtil.disconnect(conn, ps, rs);
         return customerList;
     }
 
@@ -53,8 +54,9 @@ public class ManageAccount {
             input = new Sha256().sha256(input);
             ps.setString(2, input);
             ps.setString(3, customerId);
-            ps.executeQuery();
+            ps.executeUpdate();
         }
+        dbConnectUtil.disconnect(conn, ps, null);
     }
 
     public List<Administrator> getAdminInformation()
@@ -74,6 +76,7 @@ public class ManageAccount {
             admin.setTelephone(rs.getString(5));
             adminList.add(admin);
         }
+        dbConnectUtil.disconnect(conn, ps, rs);
         return adminList;
     }
 
@@ -90,6 +93,7 @@ public class ManageAccount {
         ps.setString(1, admin.getId());
         rs = ps.executeQuery();
         if(rs.next()){
+            dbConnectUtil.disconnect(conn, ps, rs);
             return true;
         } else {
             ps = conn.prepareStatement("insert into customer (customer_id, nickname, pw, mail_id, telephone, identity)" +
@@ -100,6 +104,7 @@ public class ManageAccount {
             ps.setString(4, admin.getEmail());
             ps.setString(5, admin.getTelephone());
             ps.executeUpdate();
+            dbConnectUtil.disconnect(conn, ps, rs);
             return false;
         }
     }

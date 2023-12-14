@@ -14,8 +14,8 @@ public class UserDao {
 
     public int login(String loginId, String loginPassword) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
         try {
             ps = conn.prepareStatement("select pw, identity " +
                     "from customer where customer_id = ?");
@@ -36,19 +36,25 @@ public class UserDao {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
+        }finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
+
         }
         return -3;
     }
 
     public void deleteAccount(String account){
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
+        PreparedStatement ps=null;
         try {
             ps = conn.prepareStatement("delete from customer where customer_id = ?");
             ps.setString(1, account);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, null);
+
         }
 
     }

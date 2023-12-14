@@ -21,11 +21,11 @@ public class BookControl {
     public BookControl() {
     }
 
-    public List<Book> selectAll() {
+    public List<Book> selectAll() throws SQLException {
         List<Book> bookList = new ArrayList<>();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select * from book order by price;");
             rs = ps.executeQuery();
@@ -51,7 +51,10 @@ public class BookControl {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
+
         return bookList;
     }
 
@@ -98,24 +101,6 @@ public class BookControl {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-//                book = new Book();
-//                book.setIsbn(rs.getString(1));
-//                book.setTitle(rs.getString(2));
-//                book.setDescription(rs.getString(3));
-//                book.setPublishDate(rs.getString(4));
-//                book.setReviewAmount(Integer.parseInt(rs.getString(5)));
-//                book.setGoodRate(Double.parseDouble(rs.getString(6)));
-//                PublishHouse publish_house = new PublishHouse();
-//                publish_house.setName(rs.getString(7));
-//                book.setPublishHouse(publish_house);
-//                Author author = new Author();
-//                author.updateName(rs.getString(8));
-//                book.setAuthor(author);
-//                Category category = new Category();
-//                category.setCategoryName(rs.getString(9));
-//                book.setCategory(category);
-//                book.setPrice(Double.parseDouble(rs.getString(10)));
-//                bookList.add(book);
                 PublishHouse publishHouse = new PublishHouse();
                 publishHouse.setName(rs.getString(7));
                 Author author = new Author();
@@ -226,8 +211,8 @@ public class BookControl {
         Book book;
         Author author = new Author();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select author.*, book.ISBN,book.book_name " +
                     "from author,book where author.author_name=book.author_name and author.author_name= ? ");
@@ -261,6 +246,8 @@ public class BookControl {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return author;
     }
@@ -269,8 +256,8 @@ public class BookControl {
         Book book;
         PublishHouse publishHouse = new PublishHouse();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select press.*,book.ISBN,book.book_name " +
                     "from press,book where press.press_name=book.press_name and book.press_name=?");
@@ -295,6 +282,8 @@ public class BookControl {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return publishHouse;
     }
@@ -303,8 +292,8 @@ public class BookControl {
         Book book;
         Category category = new Category();
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("select press.*,book.ISBN,book.book_name " +
                     "from press,book where press.press_name=book.press_name and press_name=?");
@@ -322,6 +311,8 @@ public class BookControl {
             category.setBookList(BookList);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, rs);
         }
         return category;
     }
@@ -329,7 +320,7 @@ public class BookControl {
     public void addBook(Book book, Category category,
                         Author author, PublishHouse publishHouse) {
         Connection conn = dbConnectUtil.connect();
-        PreparedStatement ps;
+        PreparedStatement ps=null;
         try {
             ps = conn.prepareStatement("insert into book ISBN, book_name, " +
                     "book_description, time, comment_num, pos_rate, press_name, " +
@@ -347,6 +338,8 @@ public class BookControl {
             ps.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConnectUtil.disconnect(conn, ps, null);
         }
     }
 }
