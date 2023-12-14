@@ -68,7 +68,7 @@
                         <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value=${book_detail.reviewAmount} disabled>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-info text-white col-2">好评数</span>
+                        <span class="input-group-text bg-info text-white col-2">好评率</span>
                         <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value=${book_detail.goodRate} disabled>
                     </div>
                     <div class="input-group mb-3">

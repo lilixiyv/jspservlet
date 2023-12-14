@@ -38,7 +38,7 @@ public class MoveCurrentOrderBookServlet extends HttpServlet {
             } else {
                 String account = session.getAttribute("session_account").toString();
                 int order_id = Integer.parseInt(str_order_id);
-                new OrderControl().deleteOrderBook(order_id, isbn);
+                new OrderControl().deleteOrderBook(order_id, isbn, account);
                 request.getRequestDispatcher("CurrentOrderServlet").forward(request,response);
 
 

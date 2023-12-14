@@ -265,7 +265,7 @@ public class OrderControl {
         }
     }
 
-    public void deleteOrderBook(int order_id, String isbn) {
+    public void deleteOrderBook(int order_id, String isbn, String account) {
         Connection conn = dbConnectUtil.connect();
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -275,7 +275,13 @@ public class OrderControl {
             ps.setInt(2, order_id);
             rs = ps.executeQuery();
             if (rs.next()) {
-                double order_book_take = rs.getDouble(1) * rs.getInt(2);
+                double origin_order_book_take = rs.getDouble(1) * rs.getInt(2);
+                ps = conn.prepareStatement("select level from customer where customer_id = ?");
+                ps.setString(1, account);
+                rs.close();
+                rs = ps.executeQuery();
+                rs.next();
+                double order_book_take = (1.0- 0.1*rs.getInt(1))*origin_order_book_take;
                 ps = conn.prepareStatement("update orders set price_sum = price_sum - ? where order_id = ?");
                 ps.setDouble(1, order_book_take);
                 ps.setInt(2, order_id);
