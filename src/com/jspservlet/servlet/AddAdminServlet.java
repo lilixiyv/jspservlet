@@ -47,7 +47,7 @@ public class AddAdminServlet extends HttpServlet {
             } else {
                 try {
                     try {
-                        exists = new AdminDao().addAdmin(username, account, email, phone_number, password, null);
+                        exists = new AdminDao().addAdmin(username, account, password, email, phone_number, null);
                     } catch (NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
