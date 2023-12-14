@@ -16,8 +16,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">--%>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function validateForm(){
+            let quantity = document.getElementById("quantity").value;
 
+            let is_valid_quantity = /^[1-9]\d*$/.test(quantity);
+
+            if (quantity === '')
+            {
+                alert("请输入数量！");
+                return false;
+            } else if (!is_valid_quantity) {
+                alert("请输入正整数！");
+                return false;
+            } else {
+                window.location.href='AddOrderBookServlet?isbn=${book_detail.isbn}&quantity='+quantity;
+            }
+        }
+    </script>
 </head>
 <body class="bg-light d-flex align-items-center">
 
@@ -46,7 +68,7 @@
                         <label for="comment_num"></label><input type="text" class="form-control" id="comment_num" value=${book_detail.reviewAmount} disabled>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-info text-white col-2">好评数</span>
+                        <span class="input-group-text bg-info text-white col-2">好评率</span>
                         <label for="pos_rate"></label><input type="text" class="form-control" id="pos_rate" value=${book_detail.goodRate} disabled>
                     </div>
                     <div class="input-group mb-3">
@@ -71,14 +93,24 @@
                 </div>
 
                 <% HttpSession session1 = request.getSession(); %>
-                <% if (session1 == null || session1.getAttribute("session_identity") == null || Objects.equals(session1.getAttribute("session_identity").toString(), "0")){ %>
+                <% if (session1 == null || session1.getAttribute("session_identity") == null || Objects.equals(session1.getAttribute("session_identity").toString(), "0") || request.getParameter("in") != null){ %>
 
                     <div class="row mt-2">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-warning w-100" onclick="window.location.href='AddOrderBookServlet?isbn=${book_detail.isbn}'">添加至当前订单</button>
+                            <button type="button" class="btn btn-warning w-100" onclick="document.getElementById('form_quantity').classList.remove('hidden')">添加至当前订单</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()">返回</button>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 hidden" id="form_quantity">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-info text-white col-2">购买数量</span>
+                            <label for="quantity"></label><input type="text" class="form-control" id="quantity" value="0">
+                        </div>
+                        <div>
+                            <button type="button" class=" btn btn-info w-100" onclick="validateForm()">提交</button>
                         </div>
                     </div>
 

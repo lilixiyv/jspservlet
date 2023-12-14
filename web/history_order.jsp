@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">--%>
 
     <%-- 导入自定义的主体样式 --%>
     <link rel="stylesheet" href="assets/self_css/self_content.css">
@@ -46,26 +46,16 @@
                     </thead>
                     <tbody>
                     <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
-                    <%--                    <c:forEach var="book" items="${bookList}">--%>
-                    <%--                        <tr>--%>
-                    <%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
-                    <%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
-                    <%--                            <td>${book.authorName}</td>--%>
-                    <%--                            <td>${book.pressName}</td>--%>
-                    <%--                            <td>${book.categoryName}</td>--%>
-                    <%--                            <td>${book.price}</td>--%>
-                    <%--                        </tr>--%>
-                    <%--                    </c:forEach>--%>
-                    <%for (int i = 1; i <=5; i++) {%>
-                    <tr>
-                        <%--跳转页面待改变--%>
-                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-
-                    </tr>
-                    <%}%>
+                        <%--@elvariable id="order_list" type="java.util.List"--%>
+                        <c:forEach var="order" items="${order_list}">
+                            <tr>
+                                <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->
+                                <td>${order.orderNumber}</td>
+                                <td>${order.updateTime}</td>
+                                <td>${order.address}</td>
+                                <td>${order.price}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

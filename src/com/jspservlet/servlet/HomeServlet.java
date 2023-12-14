@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.*;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/HomeServlet")
@@ -32,13 +33,17 @@ public class HomeServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
-            if (identity == 0){
+
                 BookControl bookControl = new BookControl();
                 List<Book> bookList;
 
                 if (request.getParameter("book_name") == null){
                     //查询所有结果
-                    bookList = bookControl.selectAll();
+                    try {
+                        bookList = bookControl.selectAll();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
 
 
                 } else {
@@ -98,10 +103,10 @@ public class HomeServlet extends HttpServlet {
                     bookList = bookControl.inquire(book_name, publish_time, author, press_name, category, rate, integer_comment, double_price, type, rise);
                 }
                 request.setAttribute("bookList", bookList);
-                request.getRequestDispatcher("home.jsp").forward(request,response);
-            } else {
-                request.setAttribute("errorMessage", "登录异常！");
-                response.sendRedirect("login.jsp");
+                if (identity == 0) {
+                    request.getRequestDispatcher("home.jsp").forward(request,response);
+                } else {
+                    request.getRequestDispatcher("books.jsp").forward(request,response);
             }
 
         }

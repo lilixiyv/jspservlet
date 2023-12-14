@@ -1,3 +1,5 @@
+<%--@elvariable id="vip_level" type="com.jspservlet.servlet.CurrentOrderServlet"--%>
+<%--@elvariable id="current_order" type="com.jspservlet.entity.Order"--%>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -14,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">--%>
 
     <%-- 导入自定义的主体样式 --%>
     <link rel="stylesheet" href="assets/self_css/self_content.css">
@@ -22,6 +24,19 @@
 <%--    <script src="assets/self_js/verify_cookies.js"></script>--%>
     <%-- 导入自定义的表格样式 --%>
     <link rel="stylesheet" href="assets/self_css/self_table.css">
+
+    <script>
+        // TODO
+        function submitOrder(){
+            let address = document.getElementById("receipt_place").value;
+            window.location.href='PayOrderServlet?address=' + address;
+        }
+        function changeOrderSum(isbn){
+            let order_sum = document.getElementById(isbn).value;
+            window.location.href = "ChangeOrderBookServlet?isbn="+isbn+"&order_sum="+order_sum;
+        }
+
+    </script>
 
 </head>
 <body>
@@ -33,61 +48,86 @@
         <!-- 主要内容区域 -->
         <div id="content">
             <h1>当前订单</h1>
+            <div class="container mt-4">
+                <%--                将标签和输入分为两行来解决对齐问题，但当页面过窄时依然会效果不佳--%>
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-2">
+                        <label for="order_id" class="form-label">订单号</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="update_time" class="form-label">更新时间</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="receipt_place" class="form-label">收货地址</label>
+                    </div>
+                    <div class="col-md-2">
+                        <%
+                            int vip_level = Integer.parseInt(request.getAttribute("vip_level").toString());
+                        %>
+                        <label for="price_sum" class="form-label">总金额<%=vip_level==0?"":"（已打"+(10-vip_level)+"折）"%></label>
+                    </div>
+                </div>
+                <form class="row g-3 align-items-center" method="post" action="HomeServlet">
 
+
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="order_id" value="${current_order.orderNumber}" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="update_time" name="author" value="${current_order.updateTime}" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="receipt_place" name="press_name" value="${current_order.address}">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="price_sum" name="press_name" value="${current_order.price}" disabled>
+                    </div>
+
+                    <div class="col-md-1 ms-auto">
+<%--                        TODO--%>
+                        <button type="button" class="btn btn-outline-warning w-100 text-black" onclick="submitOrder()">提交订单</button>
+                    </div>
+                </form>
+            </div>
             <div style="height: 80vh; overflow: auto;">
-                <table class="table table-light table-striped table-hover">
-                    <thead>
-                    <tr class="table-dark">
-                        <th>书名</th>
-                        <th>出版时间</th>
-                        <th>作者</th>
-                        <th>出版社</th>
-                        <th>分类</th>
-                        <th>好评率</th>
-                        <th>评论数</th>
-                        <th>价格</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
-                    <%--                    <c:forEach var="book" items="${bookList}">--%>
-                    <%--                        <tr>--%>
-                    <%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
-                    <%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
-                    <%--                            <td>${book.authorName}</td>--%>
-                    <%--                            <td>${book.pressName}</td>--%>
-                    <%--                            <td>${book.categoryName}</td>--%>
-                    <%--                            <td>${book.price}</td>--%>
-                    <%--                        </tr>--%>
-                    <%--                    </c:forEach>--%>
-                    <%for (int i = 1; i <=5; i++) {%>
-                    <tr>
-                        <%--跳转页面待改变--%>
-                        <td><a class="custom-link" href="book_detail.jsp?isbn=test"> test </a></td>
-                        <td> test </td>
-                        <td> <a class="custom-link" href="author_detail.jsp?author_name=test"> test </a> </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test"> test </a> </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>
-                    </tr>
-                    <%}%>
-                    </tbody>
-                </table>
+
+                    <table class="table table-light table-striped table-hover">
+                        <thead>
+                        <tr class="table-dark">
+                            <th>书名</th>
+                            <th>价格</th>
+                            <th>购买数量</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
+                        <%--@elvariable id="current_order_books" type="java.util.List"--%>
+                        <c:forEach var="order_book" items="${current_order_books}">
+                            <tr>
+
+                                <td><a class="custom-link" href="BookDetailServlet?isbn=${order_book.ISBN}&in=1">${order_book.book_name}</a></td>
+                                <td>${order_book.price}</td>
+                                <td>
+                                    <label>
+                                        <input type="number" name="quantity_${order_book.ISBN}" min="1" value="${order_book.order_sum}" id="${order_book.ISBN}">
+                                    </label>
+                                </td>
+                                <td>
+                                    <button onclick="changeOrderSum('${order_book.ISBN}')">
+                                        修改
+                                    </button>
+                                </td>
+                                <td> <a class="custom-link" href="MoveCurrentOrderBookServlet?isbn=${order_book.ISBN}&order_id=${current_order.orderNumber}">移除</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+
             </div>
-            <div class="row mt-3 justify-content-end">
-                <div class="row col-2">
-                    总金额：
-                </div>
-                <div class="row col-2 justify-content-end">
-                    <button class="btn btn-warning">
-                        购买
-                    </button>
-                </div>
-            </div>
+
 
 
 
@@ -95,10 +135,10 @@
     </div>
 </div>
 
-<%--@elvariable id="successMessage" type="com.jspservlet.servlet.RegisterServlet"--%>
-<c:if test = "${not empty successMessage}">
+<%--@elvariable id="errorMessage" type="com.jspservlet.servlet.PayOrderServlet"--%>
+<c:if test = "${not empty errorMessage}">
     <script>
-        alert("${successMessage}");
+        alert("${errorMessage}");
     </script>
 </c:if>
 </body>

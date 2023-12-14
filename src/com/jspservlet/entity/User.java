@@ -2,7 +2,6 @@ package com.jspservlet.entity;
 
 import com.jspservlet.dao.ManageAccount;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
@@ -52,11 +51,11 @@ public class User {
         this.location = location;
     }
 
-    public String getUsername() {
+    public String getName() {
         return this.name;
     }
 
-    public String getID() {
+    public String getId() {
         return this.id;
     }
 

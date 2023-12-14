@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">--%>
 
     <%-- 导入自定义的主体样式 --%>
     <link rel="stylesheet" href="assets/self_css/self_content.css">
@@ -22,6 +22,19 @@
 <%--    <script src="assets/self_js/verify_cookies.js"></script>--%>
     <%-- 导入自定义的表格样式 --%>
     <link rel="stylesheet" href="assets/self_css/self_table.css">
+    <script>
+        function deleteCustomer(customer_id){
+            let confirmed = confirm("确定要移除该账号吗？");
+
+            // 如果用户点击了确定按钮
+            if (confirmed) {
+                // 执行跳转逻辑，可以使用 window.location.href 跳转到指定页面
+                window.location.href = "DeleteCustomerServlet?confirm=1&account="+customer_id;
+            } else {
+                // 用户点击了取消按钮，可以不执行任何跳转逻辑
+            }
+        }
+    </script>
 
 </head>
 <body>
@@ -44,35 +57,27 @@
                         <th>电话</th>
                         <th>等级</th>
                         <th>购买总量</th>
-                        <th>默认收获地址</th>
+                        <th>默认收货地址</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- 使用 JSTL 遍历书籍列表，并生成表格行 -->
-                    <%--                    <c:forEach var="book" items="${bookList}">--%>
-                    <%--                        <tr>--%>
-                    <%--                            <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->--%>
-                    <%--                            <td><a href="bookDetail.jsp?bookId=${book.id}">${book.name}</a></td>--%>
-                    <%--                            <td>${book.authorName}</td>--%>
-                    <%--                            <td>${book.pressName}</td>--%>
-                    <%--                            <td>${book.categoryName}</td>--%>
-                    <%--                            <td>${book.price}</td>--%>
-                    <%--                        </tr>--%>
-                    <%--                    </c:forEach>--%>
-                    <%for (int i = 1; i <=5; i++) {%>
-                    <tr>
-                        <%--跳转页面待改变--%>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> test </td>
-                        <td> <a class="custom-link" href="press_detail.jsp?author_name=test">移除</a></td>
-                    </tr>
-                    <%}%>
+
+                        <%--@elvariable id="customerList" type="java.util.List"--%>
+                        <c:forEach var="admin" items="${customerList}">
+                            <tr>
+                                <!-- book.getName() 可以根据实际的 Book 类属性来调整 -->
+                                <td>${admin.id}</td>
+                                <td>${admin.name}</td>
+                                <td>${admin.email}</td>
+                                <td>${admin.telephone}</td>
+                                <td>${admin.vipLevel}</td>
+                                <td>${admin.totalCost}</td>
+                                <td>${admin.location}</td>
+                                <td><button onclick="deleteCustomer('${admin.id}')">移除</button></td>
+                            </tr>
+                        </c:forEach>
+
                     </tbody>
                 </table>
             </div>

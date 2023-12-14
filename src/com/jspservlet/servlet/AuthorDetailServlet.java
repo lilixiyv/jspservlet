@@ -1,5 +1,8 @@
 package com.jspservlet.servlet;
 
+import com.jspservlet.dao.CustomerDao;
+import com.jspservlet.entity.Author;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +24,9 @@ public class AuthorDetailServlet extends HomeServlet{
             request.setAttribute("errorMessage", "缺少查询信息！");
             request.getRequestDispatcher("author_detail.jsp").forward(request,response);
         } else {
-
+            Author author = new CustomerDao().showAuthor(author_name);
+            request.setAttribute("author", author);
+            request.getRequestDispatcher("author_detail.jsp").forward(request,response);
         }
     }
 }

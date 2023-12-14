@@ -9,15 +9,16 @@ public class Customer extends User {
 
     private Double totalCost;
 
-    public Customer() {
-    }
-
     public Customer(String name, String password, String id, String email, String telephone,
                     String location, Integer vipLevel, List<Order> orders, Double totalCost) {
         super(name, password, id, email, telephone, location);
         this.vipLevel = vipLevel;
         this.orders = orders;
         this.totalCost = totalCost;
+    }
+
+    public Customer() {
+
     }
 
     public Double upExpense() {
@@ -53,11 +54,13 @@ public class Customer extends User {
         this.orders = orders;
     }
 
-    public void setTotalCost(Double currentBuy) {
-        this.totalCost += currentBuy;
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
     }
 
     public void setVipLevel(Integer vipLevel) {
         this.vipLevel = vipLevel;
     }
+
+
 }
