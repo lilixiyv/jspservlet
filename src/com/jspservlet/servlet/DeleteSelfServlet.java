@@ -1,6 +1,6 @@
 package com.jspservlet.servlet;
 
-import com.jspservlet.dao.AdminDao;
+import com.jspservlet.dao.CustomerDao;
 import com.jspservlet.entity.Customer;
 
 import javax.servlet.ServletException;
@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
-@WebServlet("/CustomersServlet")
-public class CustomersServlet extends HttpServlet{
-    @Override
+@WebServlet("/DeleteSelfServlet")
+public class DeleteSelfServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response); // get请求的处理都跳到post请求
+
+        doPost(request, response);
     }
 
     @Override
@@ -25,29 +24,24 @@ public class CustomersServlet extends HttpServlet{
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
-
         HttpSession session = request.getSession();
         if( session == null || session.getAttribute("session_identity") == null){
             request.setAttribute("errorMessage", "请登录！");
             response.sendRedirect("login.jsp");
         } else {
-            int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
-            if (identity == 0){
-                request.setAttribute("errorMessage", "身份认证失败！");
-                response.sendRedirect("login.jsp");
-            } else {
-                // TODO 查询普通用户信息
-                AdminDao adminDao = new AdminDao();
-                List<Customer> customerList;
-                try {
-                    customerList = adminDao.getAllCustomerInformation();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                String account = session.getAttribute("session_account").toString();
+                String confirm = request.getParameter("confirm");
+                if (!"1".equals(confirm)){
+                    request.setAttribute("errorMessage", "参数异常！");
+                    response.sendRedirect("AccountServlet");
+                } else {
+                    new CustomerDao().deleteAccount(account);
+                    session.invalidate();
+                    response.sendRedirect("login.jsp");
                 }
 
-                request.setAttribute("customerList", customerList);
-                request.getRequestDispatcher("customers.jsp").forward(request,response);
-            }
+
+
         }
     }
 }

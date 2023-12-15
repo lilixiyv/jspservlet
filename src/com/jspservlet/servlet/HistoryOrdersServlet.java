@@ -1,7 +1,9 @@
 package com.jspservlet.servlet;
 
-import com.jspservlet.dao.AdminDao;
-import com.jspservlet.entity.Customer;
+import com.jspservlet.dao.CustomerDao;
+import com.jspservlet.dao.OrderControl;
+import com.jspservlet.entity.Order;
+import com.jspservlet.entity.OrderBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +15,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/CustomersServlet")
-public class CustomersServlet extends HttpServlet{
+@WebServlet("/HistoryOrdersServlet")
+public class HistoryOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response); // get请求的处理都跳到post请求
+
+        doPost(request, response);
     }
 
     @Override
@@ -32,21 +35,20 @@ public class CustomersServlet extends HttpServlet{
             response.sendRedirect("login.jsp");
         } else {
             int identity = Integer.parseInt(session.getAttribute("session_identity").toString());
-            if (identity == 0){
-                request.setAttribute("errorMessage", "身份认证失败！");
+            if (identity == 1 ){
+                request.setAttribute("errorMessage", "身份异常！");
                 response.sendRedirect("login.jsp");
             } else {
-                // TODO 查询普通用户信息
-                AdminDao adminDao = new AdminDao();
-                List<Customer> customerList;
+                String account = session.getAttribute("session_account").toString();
                 try {
-                    customerList = adminDao.getAllCustomerInformation();
+                    List<Order> orderList = new CustomerDao().GetHistoryOrder(account);
+                    request.setAttribute("order_list", orderList);
+                    request.getRequestDispatcher("history_order.jsp").forward(request,response);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
 
-                request.setAttribute("customerList", customerList);
-                request.getRequestDispatcher("customers.jsp").forward(request,response);
+
             }
         }
     }

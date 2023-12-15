@@ -1,6 +1,7 @@
 package com.jspservlet.servlet;
 
 import com.jspservlet.dao.AdminDao;
+import com.jspservlet.entity.Administrator;
 import com.jspservlet.entity.Customer;
 
 import javax.servlet.ServletException;
@@ -13,8 +14,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/CustomersServlet")
-public class CustomersServlet extends HttpServlet{
+@WebServlet("/AdminsServlet")
+public class AdminsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response); // get请求的处理都跳到post请求
@@ -36,17 +37,15 @@ public class CustomersServlet extends HttpServlet{
                 request.setAttribute("errorMessage", "身份认证失败！");
                 response.sendRedirect("login.jsp");
             } else {
-                // TODO 查询普通用户信息
-                AdminDao adminDao = new AdminDao();
-                List<Customer> customerList;
                 try {
-                    customerList = adminDao.getAllCustomerInformation();
+                    List<Administrator> administratorList = new AdminDao().getAdminInformation();
+                    request.setAttribute("administratorList", administratorList);
+                    request.getRequestDispatcher("admins.jsp").forward(request,response);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
 
-                request.setAttribute("customerList", customerList);
-                request.getRequestDispatcher("customers.jsp").forward(request,response);
+
             }
         }
     }

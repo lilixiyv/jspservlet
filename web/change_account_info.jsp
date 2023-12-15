@@ -16,7 +16,8 @@
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">--%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
     <script>
         function validateForm(){
@@ -71,7 +72,7 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">修改个人信息</h3>
-                <form action="RegisterServlet" method="post" id="rg_form">
+                <form action="ChangeAccountInfoServlet" method="post" id="rg_form">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
@@ -128,7 +129,14 @@
         alert("${errorMessage}");
     </script>
 </c:if>
+<%--@elvariable id="successMessage" type="com.jspservlet.servlet.ChangeAccountInfoServlet"--%>
+<c:if test = "${not empty successMessage}">
 
+
+    <script>
+        alert("${successMessage}");
+    </script>
+</c:if>
 
 </body>
 

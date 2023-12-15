@@ -16,7 +16,8 @@
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="./assets/bootstrap-icons-1.11.2/font/bootstrap-icons.css">--%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
 
         body {
@@ -86,7 +87,7 @@
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title text-center">添加管理员用户</h3>
-                <form action="RegisterServlet" method="post" id="rg_form">
+                <form action="AddAdminServlet" method="post" id="rg_form">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-info"><i class="bi bi-person-fill text-white"></i></span>
@@ -118,7 +119,7 @@
 
                     <div class="row mt-2">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-success w-100" onclick="window.location.href='add_admin.jsp'">添加用户</button>
+                            <button type="button" class="btn btn-outline-success w-100" onclick="validateForm()">添加用户</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-outline-secondary w-100" onclick="window.history.back()">返回</button>
