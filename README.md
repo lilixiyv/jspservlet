@@ -44,7 +44,7 @@
 
 ## 效果图（随便截了几张图）
 （从零开始自己现学、手敲的前端界面，虽然很烂但是还请体谅一下。）
-![登录界面](\img\login.jpg)
-![注册界面](\img\register.jpg)
-![注册界面](\img\home.jpg)
+![login.jpg](img%2Flogin.jpg)
+![register.jpg](img%2Fregister.jpg)
+![home.jpg](img%2Fhome.jpg)
 
