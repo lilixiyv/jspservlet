@@ -44,7 +44,7 @@
 
 ## 效果图（随便截了几张图）
 （从零开始自己现学、手敲的前端界面，虽然很烂但是还请体谅一下。）
-![login.jpg](img%2Flogin.jpg)
-![register.jpg](img%2Fregister.jpg)
-![home.jpg](img%2Fhome.jpg)
+![login.jpg](https://github.com/lilixiyv/jspservlet/tree/main/img/login.jpg)
+![register.jpg](https://github.com/lilixiyv/jspservlet/tree/main/img/register.jpg)
+![home.jpg](https://github.com/lilixiyv/jspservlet/tree/main/img/home.jpg)
 
