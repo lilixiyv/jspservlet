@@ -12,22 +12,22 @@
     <p id="sidebar-heading">网上书店</p>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("home.jsp")) ? " active" : "" %>" href="home.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("home.jsp")) ? " active" : "" %>" href="HomeServlet">
                 首页
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("current_order.jsp")) ? " active" : "" %>" href="current_order.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("current_order.jsp")) ? " active" : "" %>" href="CurrentOrderServlet">
                 当前订单
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("history_order.jsp")) ? " active" : "" %>" href="history_order.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("history_order.jsp")) ? " active" : "" %>" href="HistoryOrdersServlet">
                 历史订单
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("account.jsp")) ? " active" : "" %>" href="account.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("account.jsp")) ? " active" : "" %>" href="AccountServlet">
                 账号管理
             </a>
         </li>

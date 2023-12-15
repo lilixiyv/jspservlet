@@ -12,22 +12,22 @@
     <p id="sidebar-heading">管理员</p>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("customers.jsp")) ? " active" : "" %>" href="customers.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("customers.jsp")) ? " active" : "" %>" href="CustomersServlet">
                 普通用户
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("admins.jsp")) ? " active" : "" %>" href="admins.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("admins")) ? " active" : "" %>" href="AdminsServlet">
                 管理员用户
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("books.jsp")) ? " active" : "" %>" href="books.jsp">
+                <a class="nav-link<%= (request.getRequestURI().endsWith("books.jsp")) ? " active" : "" %>" href="HomeServlet">
                 书籍管理
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link<%= (request.getRequestURI().endsWith("admin_account.jsp")) ? " active" : "" %>" href="admin_account.jsp">
+            <a class="nav-link<%= (request.getRequestURI().endsWith("account.jsp")) ? " active" : "" %>" href="AccountServlet">
                 账号管理
             </a>
         </li>
